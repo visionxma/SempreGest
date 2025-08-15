@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEMPRE - Gestão de Projetos e Negócios Empresariais</title>
+    <meta name="description" content="Assessoria, consultoria e gestão de projetos para ONGs, fundações e associações. Transformamos ideias em projetos de impacto social.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <div class="nav-brand">
+                    <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=100&h=50&fit=crop" alt="SEMPRE Logo" class="logo">
+                    <span class="brand-text">SEMPRE</span>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Transformamos ideias em projetos de impacto</h1>
+                <p class="hero-subtitle">Gestão profissional e estratégica para ONGs, associações e fundações.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Agende uma reunião</a>
+                    <a href="#contact" class="btn btn-secondary">Entre em contato</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quem Somos</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        A SEMPRE é especializada em assessoria, consultoria e instrutoria em gestão de projetos e negócios empresariais, com foco em empresas, fundações, associações e entidades de interesse social.
+                    </p>
+                    <p class="about-description">
+                        Aplicamos metodologias, ferramentas e técnicas modernas para garantir resultados com eficiência e otimização de recursos.
+                    </p>
+                </div>
+                <div class="about-values">
+                    <div class="value-item">
+                        <h3><i class="fas fa-bullseye"></i> Missão</h3>
+                        <p>Prestar serviços técnicos especializados para potencializar projetos e negócios, com foco em resultados e impacto social.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3><i class="fas fa-eye"></i> Visão</h3>
+                        <p>Ser referência em gestão de projetos e negócios empresariais na Ilha de São Luís do Maranhão.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3><i class="fas fa-heart"></i> Valores</h3>
+                        <p>Comprometimento, Ética, Transparência, Inovação, Excelência Técnica, Responsabilidade Social.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>O que fazemos</h2>
+                <p>Oferecemos soluções completas para potencializar seu projeto social</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>Captação de Recursos</h3>
+                    <p>Estratégias para obter financiamentos e parcerias sustentáveis para seu projeto.</p>
+                    <button class="btn-service" onclick="openModal('captacao')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Diagnóstico de Viabilidade</h3>
+                    <p>Avaliação jurídica, fiscal e técnica completa de projetos e iniciativas.</p>
+                    <button class="btn-service" onclick="openModal('diagnostico')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <h3>Gestão Documental</h3>
+                    <p>Organização e controle eficiente da documentação institucional.</p>
+                    <button class="btn-service" onclick="openModal('documental')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Elaboração Técnica de Projetos</h3>
+                    <p>Propostas completas, orçamentos detalhados e cronogramas executivos.</p>
+                    <button class="btn-service" onclick="openModal('elaboracao')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Representação Institucional</h3>
+                    <p>Representação qualificada junto a órgãos públicos e privados.</p>
+                    <button class="btn-service" onclick="openModal('representacao')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Gestão de Contratos e Projetos</h3>
+                    <p>Coordenação e acompanhamento completo de execuções contratuais.</p>
+                    <button class="btn-service" onclick="openModal('gestao')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Prestação de Contas</h3>
+                    <p>Relatórios técnicos e financeiros transparentes e detalhados.</p>
+                    <button class="btn-service" onclick="openModal('prestacao')">Saiba mais</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Capacitação e Qualificação</h3>
+                    <p>Cursos e treinamentos especializados para equipes e gestores.</p>
+                    <button class="btn-service" onclick="openModal('capacitacao')">Saiba mais</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>O que dizem sobre nós</h2>
+                <p>Depoimentos de clientes que transformaram seus projetos conosco</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Graças à SEMPRE, conseguimos viabilizar nosso projeto social e alcançar mais famílias. O profissionalismo e dedicação da equipe foram fundamentais para nosso sucesso."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Instituto Vida Plena</h4>
+                            <span>ONG - Assistência Social</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Profissionalismo e compromisso com o impacto social. A SEMPRE nos ajudou a estruturar nossos processos e alcançar resultados que não imaginávamos possíveis. Recomendamos!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Associação Esperança</h4>
+                            <span>Associação - Educação</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"A consultoria da SEMPRE foi essencial para organizarmos nossa documentação e conseguirmos aprovação em editais importantes. Trabalho de excelência!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Fundação Futuro Melhor</h4>
+                            <span>Fundação - Meio Ambiente</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Entre em Contato</h2>
+                <p>Vamos conversar sobre como transformar seu projeto em realidade!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Seu telefone" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Sua mensagem" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+                    </form>
+                    <div class="whatsapp-button">
+                        <a href="https://wa.me/5598987100001" target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>E-mail</h4>
+                            <p>contato.sempregestao@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(98) 9 8710-0001</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Endereço</h4>
+                            <p>Rua da União, n.º 777, Pavmto superior<br>Ilhinha, São Luís - MA<br>CEP 65076-670</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=100&h=50&fit=crop" alt="SEMPRE Logo" class="footer-logo">
+                    <h3>SEMPRE</h3>
+                    <p>Gestão de Projetos e Negócios Empresariais</p>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato.sempregestao@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> (98) 9 8710-0001</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Rua da União, 777 - Ilhinha, São Luís - MA</p>
+                </div>
+                <div class="footer-social">
+                    <h4>Redes Sociais</h4>
+                    <div class="social-links">
+                        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SEMPRE - Gestão de Projetos e Negócios Empresariais. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="serviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
