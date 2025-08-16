@@ -10,6 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-container">
+            <div class="loading-logo">
+                <img src="public/images/LogoSempre2025.jpg" alt="SEMPRE Logo">
+            </div>
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <div class="loading-text">Carregando...</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <nav class="navbar">
@@ -34,16 +50,65 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
+    <!-- Hero Carousel Section -->
+    <section id="home" class="hero-carousel">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Transformamos ideias em projetos de impacto</h1>
-                <p class="hero-subtitle">Gestão profissional e estratégica para ONGs, associações e fundações.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Agende uma reunião</a>
-                    <a href="#contact" class="btn btn-secondary">Entre em contato</a>
+            <div class="carousel-container">
+                <div class="carousel-slides">
+                    <div class="carousel-slide active">
+                        <div class="slide-image">
+                            <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop" alt="Gestão de Projetos">
+                        </div>
+                        <div class="slide-content">
+                            <h1>Transformamos ideias em projetos de impacto</h1>
+                            <p>Gestão profissional e estratégica para ONGs, associações e fundações.</p>
+                            <div class="slide-buttons">
+                                <a href="#contact" class="btn btn-primary">Agende uma reunião</a>
+                                <a href="#contact" class="btn btn-secondary">Entre em contato</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-image">
+                            <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop" alt="Consultoria Especializada">
+                        </div>
+                        <div class="slide-content">
+                            <h1>Consultoria especializada em gestão</h1>
+                            <p>Metodologias modernas e ferramentas eficientes para maximizar resultados.</p>
+                            <div class="slide-buttons">
+                                <a href="#services" class="btn btn-primary">Nossos Serviços</a>
+                                <a href="#about" class="btn btn-secondary">Saiba Mais</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="slide-image">
+                            <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop" alt="Impacto Social">
+                        </div>
+                        <div class="slide-content">
+                            <h1>Potencializando o impacto social</h1>
+                            <p>Soluções completas para organizações que transformam vidas e comunidades.</p>
+                            <div class="slide-buttons">
+                                <a href="#testimonials" class="btn btn-primary">Depoimentos</a>
+                                <a href="#contact" class="btn btn-secondary">Fale Conosco</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Navigation -->
+                <button class="carousel-btn carousel-prev" aria-label="Slide anterior">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn carousel-next" aria-label="Próximo slide">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators">
+                    <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+                    <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+                    <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
                 </div>
             </div>
         </div>
@@ -91,64 +156,64 @@
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Captação de Recursos">
                     </div>
                     <h3>Captação de Recursos</h3>
                     <p>Estratégias para obter financiamentos e parcerias sustentáveis para seu projeto.</p>
                     <button class="btn-service" onclick="openModal('captacao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Diagnóstico de Viabilidade">
                     </div>
                     <h3>Diagnóstico de Viabilidade</h3>
                     <p>Avaliação jurídica, fiscal e técnica completa de projetos e iniciativas.</p>
                     <button class="btn-service" onclick="openModal('diagnostico')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-folder-open"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Gestão Documental">
                     </div>
                     <h3>Gestão Documental</h3>
                     <p>Organização e controle eficiente da documentação institucional.</p>
                     <button class="btn-service" onclick="openModal('documental')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-project-diagram"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Elaboração Técnica de Projetos">
                     </div>
                     <h3>Elaboração Técnica de Projetos</h3>
                     <p>Propostas completas, orçamentos detalhados e cronogramas executivos.</p>
                     <button class="btn-service" onclick="openModal('elaboracao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-handshake"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Representação Institucional">
                     </div>
                     <h3>Representação Institucional</h3>
                     <p>Representação qualificada junto a órgãos públicos e privados.</p>
                     <button class="btn-service" onclick="openModal('representacao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tasks"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Gestão de Contratos e Projetos">
                     </div>
                     <h3>Gestão de Contratos e Projetos</h3>
                     <p>Coordenação e acompanhamento completo de execuções contratuais.</p>
                     <button class="btn-service" onclick="openModal('gestao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Prestação de Contas">
                     </div>
                     <h3>Prestação de Contas</h3>
                     <p>Relatórios técnicos e financeiros transparentes e detalhados.</p>
                     <button class="btn-service" onclick="openModal('prestacao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-graduation-cap"></i>
+                    <div class="service-image">
+                        <img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="Capacitação e Qualificação">
                     </div>
                     <h3>Capacitação e Qualificação</h3>
                     <p>Cursos e treinamentos especializados para equipes e gestores.</p>
