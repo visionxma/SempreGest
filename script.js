@@ -5,6 +5,7 @@ const navMenu = document.querySelector(".nav-menu")
 navToggle.addEventListener("click", () => {
   navMenu.classList.toggle("active")
   navToggle.classList.toggle("active")
+})
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll(".nav-menu a").forEach((link) => {
@@ -473,19 +474,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.body.contains(loadingScreen)) {
       clearInterval(loadingInterval)
       finishLoading()
-    }
-  }, 4000)
-})
-
-  // Garantia: remove a tela de loading após 4 segundos, mesmo se algo falhar
-  setTimeout(() => {
-    if (loadingScreen && !loadingScreen.classList.contains("hidden")) {
-      loadingScreen.classList.add("hidden")
-      setTimeout(() => {
-        if (loadingScreen && loadingScreen.parentNode) {
-          loadingScreen.remove()
-        }
-      }, 500)
     }
   }, 4000)
 })
