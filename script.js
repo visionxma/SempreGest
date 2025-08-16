@@ -291,18 +291,6 @@ const observer = new IntersectionObserver((entries) => {
   })
 }, observerOptions)
 
-// Observe elements for animation
-document.addEventListener("DOMContentLoaded", () => {
-  const animatedElements = document.querySelectorAll(".service-card, .testimonial-card, .value-item")
-
-  animatedElements.forEach((el) => {
-    el.style.opacity = "0"
-    el.style.transform = "translateY(30px)"
-    el.style.transition = "opacity 0.6s ease, transform 0.6s ease"
-    observer.observe(el)
-  })
-})
-
 // Phone number formatting
 const phoneInput = document.getElementById("phone")
 if (phoneInput) {
@@ -453,17 +441,61 @@ document.querySelectorAll("img").forEach((img) => {
   })
 })
 
-window.addEventListener("load", () => {
+// Loading screen with progress bar
+document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loadingScreen")
 
-  // Simulate loading time and hide loading screen
+  // Simulate progress of loading more quickly
+  let progress = 0
+  const progressBar = document.querySelector(".progress-bar")
+
+  const loadingInterval = setInterval(() => {
+    progress += Math.random() * 15 + 5 // Random increment between 5-20%
+
+    if (progress >= 100) {
+      progress = 100
+      clearInterval(loadingInterval)
+
+      // Hide loading screen after completing
+      setTimeout(() => {
+        loadingScreen.classList.add("hidden")
+        // Remove from DOM after transition
+        setTimeout(() => {
+          if (loadingScreen && loadingScreen.parentNode) {
+            loadingScreen.remove()
+          }
+        }, 500)
+      }, 500) // Small pause after reaching 100%
+    }
+
+    if (progressBar) {
+      progressBar.style.width = progress + "%"
+    }
+  }, 100) // Update every 100ms
+
+  // Ensure loading screen disappears even if something goes wrong
   setTimeout(() => {
-    loadingScreen.classList.add("hidden")
-    // Remove from DOM after transition
-    setTimeout(() => {
-      loadingScreen.remove()
-    }, 500)
-  }, 3000) // 3 seconds loading time
+    if (loadingScreen && !loadingScreen.classList.contains("hidden")) {
+      loadingScreen.classList.add("hidden")
+      setTimeout(() => {
+        if (loadingScreen && loadingScreen.parentNode) {
+          loadingScreen.remove()
+        }
+      }, 500)
+    }
+  }, 4000) // Maximum timeout of 4 seconds
+})
+
+// Observe elements for animation
+document.addEventListener("DOMContentLoaded", () => {
+  const animatedElements = document.querySelectorAll(".service-card, .testimonial-card, .value-item")
+
+  animatedElements.forEach((el) => {
+    el.style.opacity = "0"
+    el.style.transform = "translateY(30px)"
+    el.style.transition = "opacity 0.6s ease, transform 0.6s ease"
+    observer.observe(el)
+  })
 })
 
 let currentSlideIndex = 0
