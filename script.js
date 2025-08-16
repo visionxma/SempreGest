@@ -5,7 +5,6 @@ const navMenu = document.querySelector(".nav-menu")
 navToggle.addEventListener("click", () => {
   navMenu.classList.toggle("active")
   navToggle.classList.toggle("active")
-})
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll(".nav-menu a").forEach((link) => {
@@ -445,26 +444,38 @@ document.querySelectorAll("img").forEach((img) => {
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loadingScreen")
   const progressBar = document.querySelector(".loading-bar")
+  
+  if (!loadingScreen) return
+  
   let progress = 0
-
-  const loadingInterval = setInterval(() => {
+  let loadingInterval = setInterval(() => {
     progress += Math.random() * 15 + 5
     if (progress >= 100) {
       progress = 100
       clearInterval(loadingInterval)
-      setTimeout(() => {
-        loadingScreen.classList.add("hidden")
-        setTimeout(() => {
-          if (loadingScreen && loadingScreen.parentNode) {
-            loadingScreen.remove()
-          }
-        }, 500)
-      }, 500)
+      finishLoading()
     }
     if (progressBar) {
       progressBar.style.width = progress + "%"
     }
   }, 100)
+
+  // Função para finalizar o carregamento
+  function finishLoading() {
+    loadingScreen.classList.add("hidden")
+    setTimeout(() => {
+      loadingScreen.remove()
+    }, 500)
+  }
+
+  // Garantia: remove após 4s mesmo se falhar
+  setTimeout(() => {
+    if (document.body.contains(loadingScreen)) {
+      clearInterval(loadingInterval)
+      finishLoading()
+    }
+  }, 4000)
+})
 
   // Garantia: remove a tela de loading após 4 segundos, mesmo se algo falhar
   setTimeout(() => {
