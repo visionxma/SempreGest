@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Simulate progress of loading more quickly
   let progress = 0
-  const progressBar = document.querySelector(".progress-bar")
+  const progressBar = document.querySelector(".loading-bar")
 
   const loadingInterval = setInterval(() => {
     progress += Math.random() * 15 + 5 // Random increment between 5-20%
