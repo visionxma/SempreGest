@@ -10,6 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <img src="public/images/LogoSempre2025.jpg" alt="SEMPRE Logo" class="loading-logo">
+            <div class="loading-spinner"></div>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+            </div>
+            <p class="loading-text">Carregando...</p>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <nav class="navbar">
@@ -34,18 +46,55 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Transformamos ideias em projetos de impacto</h1>
-                <p class="hero-subtitle">Gestão profissional e estratégica para ONGs, associações e fundações.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Agende uma reunião</a>
-                    <a href="#contact" class="btn btn-secondary">Entre em contato</a>
+    <!-- Hero Carousel Section -->
+    <section id="home" class="hero-carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="/placeholder.svg?height=600&width=1200" alt="Gestão de Projetos">
+                <div class="carousel-content">
+                    <h1>Transformamos ideias em projetos de impacto</h1>
+                    <p>Gestão profissional e estratégica para ONGs, associações e fundações.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Agende uma reunião</a>
+                        <a href="#contact" class="btn btn-secondary">Entre em contato</a>
+                    </div>
                 </div>
             </div>
+            <div class="carousel-slide">
+                <img src="/placeholder.svg?height=600&width=1200" alt="Consultoria Especializada">
+                <div class="carousel-content">
+                    <h1>Consultoria especializada em impacto social</h1>
+                    <p>Metodologias modernas para garantir resultados com eficiência e otimização de recursos.</p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="btn btn-primary">Nossos Serviços</a>
+                        <a href="#about" class="btn btn-secondary">Conheça mais</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/placeholder.svg?height=600&width=1200" alt="Resultados Comprovados">
+                <div class="carousel-content">
+                    <h1>Resultados comprovados em gestão</h1>
+                    <p>Referência em gestão de projetos e negócios empresariais na Ilha de São Luís do Maranhão.</p>
+                    <div class="hero-buttons">
+                        <a href="#testimonials" class="btn btn-primary">Ver Depoimentos</a>
+                        <a href="#contact" class="btn btn-secondary">Fale Conosco</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-nav">
+            <button class="carousel-btn prev" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="currentSlide(1)"></span>
+            <span class="indicator" onclick="currentSlide(2)"></span>
+            <span class="indicator" onclick="currentSlide(3)"></span>
         </div>
     </section>
 
@@ -91,64 +140,64 @@
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Captação de Recursos">
                     </div>
                     <h3>Captação de Recursos</h3>
                     <p>Estratégias para obter financiamentos e parcerias sustentáveis para seu projeto.</p>
                     <button class="btn-service" onclick="openModal('captacao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Diagnóstico de Viabilidade">
                     </div>
                     <h3>Diagnóstico de Viabilidade</h3>
                     <p>Avaliação jurídica, fiscal e técnica completa de projetos e iniciativas.</p>
                     <button class="btn-service" onclick="openModal('diagnostico')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-folder-open"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Gestão Documental">
                     </div>
                     <h3>Gestão Documental</h3>
                     <p>Organização e controle eficiente da documentação institucional.</p>
                     <button class="btn-service" onclick="openModal('documental')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-project-diagram"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Elaboração Técnica de Projetos">
                     </div>
                     <h3>Elaboração Técnica de Projetos</h3>
                     <p>Propostas completas, orçamentos detalhados e cronogramas executivos.</p>
                     <button class="btn-service" onclick="openModal('elaboracao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-handshake"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Representação Institucional">
                     </div>
                     <h3>Representação Institucional</h3>
                     <p>Representação qualificada junto a órgãos públicos e privados.</p>
                     <button class="btn-service" onclick="openModal('representacao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tasks"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Gestão de Contratos e Projetos">
                     </div>
                     <h3>Gestão de Contratos e Projetos</h3>
                     <p>Coordenação e acompanhamento completo de execuções contratuais.</p>
                     <button class="btn-service" onclick="openModal('gestao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Prestação de Contas">
                     </div>
                     <h3>Prestação de Contas</h3>
                     <p>Relatórios técnicos e financeiros transparentes e detalhados.</p>
                     <button class="btn-service" onclick="openModal('prestacao')">Saiba mais</button>
                 </div>
                 <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-graduation-cap"></i>
+                    <div class="service-image">
+                        <img src="/placeholder.svg?height=200&width=300" alt="Capacitação e Qualificação">
                     </div>
                     <h3>Capacitação e Qualificação</h3>
                     <p>Cursos e treinamentos especializados para equipes e gestores.</p>

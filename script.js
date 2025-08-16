@@ -1,59 +1,59 @@
 // Mobile Navigation Toggle
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('.nav-menu');
+const navToggle = document.querySelector(".nav-toggle")
+const navMenu = document.querySelector(".nav-menu")
 
-navToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    navToggle.classList.toggle('active');
-});
+navToggle.addEventListener("click", () => {
+  navMenu.classList.toggle("active")
+  navToggle.classList.toggle("active")
+})
 
 // Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    });
-});
+document.querySelectorAll(".nav-menu a").forEach((link) => {
+  link.addEventListener("click", () => {
+    navMenu.classList.remove("active")
+    navToggle.classList.remove("active")
+  })
+})
 
 // Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault()
+    const target = document.querySelector(this.getAttribute("href"))
+    if (target) {
+      const headerOffset = 80
+      const elementPosition = target.offsetTop
+      const offsetPosition = elementPosition - headerOffset
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
+    }
+  })
+})
 
 // Header background change on scroll
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.boxShadow = 'none';
-    }
-});
+window.addEventListener("scroll", () => {
+  const header = document.querySelector(".header")
+  if (window.scrollY > 100) {
+    header.style.background = "rgba(255, 255, 255, 0.98)"
+    header.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)"
+  } else {
+    header.style.background = "rgba(255, 255, 255, 0.95)"
+    header.style.boxShadow = "none"
+  }
+})
 
 // Service Modal Functionality
-const modal = document.getElementById('serviceModal');
-const modalBody = document.getElementById('modalBody');
-const closeModal = document.querySelector('.close');
+const modal = document.getElementById("serviceModal")
+const modalBody = document.getElementById("modalBody")
+const closeModal = document.querySelector(".close")
 
 const serviceDetails = {
-    captacao: {
-        title: 'Captação de Recursos',
-        content: `
+  captacao: {
+    title: "Captação de Recursos",
+    content: `
             <h3>Captação de Recursos</h3>
             <p>Desenvolvemos estratégias personalizadas para captação de recursos, incluindo:</p>
             <ul>
@@ -68,11 +68,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    diagnostico: {
-        title: 'Diagnóstico de Viabilidade',
-        content: `
+        `,
+  },
+  diagnostico: {
+    title: "Diagnóstico de Viabilidade",
+    content: `
             <h3>Diagnóstico de Viabilidade</h3>
             <p>Realizamos análise completa da viabilidade do seu projeto:</p>
             <ul>
@@ -87,11 +87,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    documental: {
-        title: 'Gestão Documental',
-        content: `
+        `,
+  },
+  documental: {
+    title: "Gestão Documental",
+    content: `
             <h3>Gestão Documental</h3>
             <p>Organizamos e estruturamos toda a documentação institucional:</p>
             <ul>
@@ -106,11 +106,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    elaboracao: {
-        title: 'Elaboração Técnica de Projetos',
-        content: `
+        `,
+  },
+  elaboracao: {
+    title: "Elaboração Técnica de Projetos",
+    content: `
             <h3>Elaboração Técnica de Projetos</h3>
             <p>Desenvolvemos projetos completos e profissionais:</p>
             <ul>
@@ -125,11 +125,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    representacao: {
-        title: 'Representação Institucional',
-        content: `
+        `,
+  },
+  representacao: {
+    title: "Representação Institucional",
+    content: `
             <h3>Representação Institucional</h3>
             <p>Representamos sua organização com profissionalismo:</p>
             <ul>
@@ -144,11 +144,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    gestao: {
-        title: 'Gestão de Contratos e Projetos',
-        content: `
+        `,
+  },
+  gestao: {
+    title: "Gestão de Contratos e Projetos",
+    content: `
             <h3>Gestão de Contratos e Projetos</h3>
             <p>Coordenamos integralmente a execução de projetos:</p>
             <ul>
@@ -163,11 +163,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    prestacao: {
-        title: 'Prestação de Contas',
-        content: `
+        `,
+  },
+  prestacao: {
+    title: "Prestação de Contas",
+    content: `
             <h3>Prestação de Contas</h3>
             <p>Elaboramos relatórios completos e transparentes:</p>
             <ul>
@@ -182,11 +182,11 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    },
-    capacitacao: {
-        title: 'Capacitação e Qualificação',
-        content: `
+        `,
+  },
+  capacitacao: {
+    title: "Capacitação e Qualificação",
+    content: `
             <h3>Capacitação e Qualificação</h3>
             <p>Oferecemos treinamentos especializados para sua equipe:</p>
             <ul>
@@ -201,155 +201,155 @@ const serviceDetails = {
             <div style="margin-top: 20px;">
                 <a href="#contact" class="btn btn-primary" onclick="closeServiceModal()">Solicite uma proposta</a>
             </div>
-        `
-    }
-};
+        `,
+  },
+}
 
 function openModal(serviceKey) {
-    const service = serviceDetails[serviceKey];
-    if (service) {
-        modalBody.innerHTML = service.content;
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
+  const service = serviceDetails[serviceKey]
+  if (service) {
+    modalBody.innerHTML = service.content
+    modal.style.display = "block"
+    document.body.style.overflow = "hidden"
+  }
 }
 
 function closeServiceModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+  modal.style.display = "none"
+  document.body.style.overflow = "auto"
 }
 
-closeModal.addEventListener('click', closeServiceModal);
+closeModal.addEventListener("click", closeServiceModal)
 
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeServiceModal();
-    }
-});
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    closeServiceModal()
+  }
+})
 
 // Contact Form Handling
-const contactForm = document.getElementById('contactForm');
+const contactForm = document.getElementById("contactForm")
 
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const phone = formData.get('phone');
-    const message = formData.get('message');
-    
-    // Basic validation
-    if (!name || !email || !phone || !message) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Por favor, insira um e-mail válido.');
-        return;
-    }
-    
-    // Phone validation (Brazilian format)
-    const phoneRegex = /^(\(?\d{2}\)?\s?)?\d{4,5}-?\d{4}$/;
-    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
-        alert('Por favor, insira um telefone válido.');
-        return;
-    }
-    
-    // Simulate form submission
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    
-    submitButton.textContent = 'Enviando...';
-    submitButton.disabled = true;
-    
-    // Simulate API call
-    setTimeout(() => {
-        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-        contactForm.reset();
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    }, 2000);
-});
+contactForm.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  // Get form data
+  const formData = new FormData(contactForm)
+  const name = formData.get("name")
+  const email = formData.get("email")
+  const phone = formData.get("phone")
+  const message = formData.get("message")
+
+  // Basic validation
+  if (!name || !email || !phone || !message) {
+    alert("Por favor, preencha todos os campos.")
+    return
+  }
+
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(email)) {
+    alert("Por favor, insira um e-mail válido.")
+    return
+  }
+
+  // Phone validation (Brazilian format)
+  const phoneRegex = /^($$?\d{2}$$?\s?)?\d{4,5}-?\d{4}$/
+  if (!phoneRegex.test(phone.replace(/\s/g, ""))) {
+    alert("Por favor, insira um telefone válido.")
+    return
+  }
+
+  // Simulate form submission
+  const submitButton = contactForm.querySelector('button[type="submit"]')
+  const originalText = submitButton.textContent
+
+  submitButton.textContent = "Enviando..."
+  submitButton.disabled = true
+
+  // Simulate API call
+  setTimeout(() => {
+    alert("Mensagem enviada com sucesso! Entraremos em contato em breve.")
+    contactForm.reset()
+    submitButton.textContent = originalText
+    submitButton.disabled = false
+  }, 2000)
+})
 
 // Intersection Observer for animations
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px",
+}
 
 const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = "1"
+      entry.target.style.transform = "translateY(0)"
+    }
+  })
+}, observerOptions)
 
 // Observe elements for animation
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('.service-card, .testimonial-card, .value-item');
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
+document.addEventListener("DOMContentLoaded", () => {
+  const animatedElements = document.querySelectorAll(".service-card, .testimonial-card, .value-item")
+
+  animatedElements.forEach((el) => {
+    el.style.opacity = "0"
+    el.style.transform = "translateY(30px)"
+    el.style.transition = "opacity 0.6s ease, transform 0.6s ease"
+    observer.observe(el)
+  })
+})
 
 // Phone number formatting
-const phoneInput = document.getElementById('phone');
+const phoneInput = document.getElementById("phone")
 if (phoneInput) {
-    phoneInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        
-        if (value.length >= 11) {
-            value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-        } else if (value.length >= 7) {
-            value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
-        } else if (value.length >= 3) {
-            value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
-        }
-        
-        e.target.value = value;
-    });
+  phoneInput.addEventListener("input", (e) => {
+    let value = e.target.value.replace(/\D/g, "")
+
+    if (value.length >= 11) {
+      value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3")
+    } else if (value.length >= 7) {
+      value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3")
+    } else if (value.length >= 3) {
+      value = value.replace(/(\d{2})(\d{0,5})/, "($1) $2")
+    }
+
+    e.target.value = value
+  })
 }
 
 // Lazy loading for images
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
+if ("IntersectionObserver" in window) {
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target
+        img.src = img.dataset.src
+        img.classList.remove("lazy")
+        imageObserver.unobserve(img)
+      }
+    })
+  })
 
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
+  document.querySelectorAll("img[data-src]").forEach((img) => {
+    imageObserver.observe(img)
+  })
 }
 
 // Scroll to top functionality
-const scrollToTopBtn = document.createElement('button');
-scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-scrollToTopBtn.className = 'scroll-to-top';
+const scrollToTopBtn = document.createElement("button")
+scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>'
+scrollToTopBtn.className = "scroll-to-top"
 scrollToTopBtn.style.cssText = `
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 50px;
     height: 50px;
-    background: #2c5aa0;
+    background: #000000;
     color: white;
     border: none;
     border-radius: 50%;
@@ -358,96 +358,148 @@ scrollToTopBtn.style.cssText = `
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 1000;
-    box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
-`;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+`
 
-document.body.appendChild(scrollToTopBtn);
+document.body.appendChild(scrollToTopBtn)
 
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        scrollToTopBtn.style.opacity = '1';
-        scrollToTopBtn.style.visibility = 'visible';
-    } else {
-        scrollToTopBtn.style.opacity = '0';
-        scrollToTopBtn.style.visibility = 'hidden';
-    }
-});
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    scrollToTopBtn.style.opacity = "1"
+    scrollToTopBtn.style.visibility = "visible"
+  } else {
+    scrollToTopBtn.style.opacity = "0"
+    scrollToTopBtn.style.visibility = "hidden"
+  }
+})
 
-scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
+scrollToTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  })
+})
 
 // Performance optimization: Debounce scroll events
 function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
 }
 
 // Apply debounce to scroll events
 const debouncedScrollHandler = debounce(() => {
-    const header = document.querySelector('.header');
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-    } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.boxShadow = 'none';
-    }
-}, 10);
+  const header = document.querySelector(".header")
+  if (window.scrollY > 100) {
+    header.style.background = "rgba(255, 255, 255, 0.98)"
+    header.style.boxShadow = "0 2px 20px rgba(0, 0, 0, 0.1)"
+  } else {
+    header.style.background = "rgba(255, 255, 255, 0.95)"
+    header.style.boxShadow = "none"
+  }
+}, 10)
 
-window.addEventListener('scroll', debouncedScrollHandler);
+window.addEventListener("scroll", debouncedScrollHandler)
 
 // Accessibility improvements
-document.addEventListener('keydown', (e) => {
-    // Close modal with Escape key
-    if (e.key === 'Escape' && modal.style.display === 'block') {
-        closeServiceModal();
-    }
-    
-    // Close mobile menu with Escape key
-    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-        navMenu.classList.remove('active');
-        navToggle.classList.remove('active');
-    }
-});
+document.addEventListener("keydown", (e) => {
+  // Close modal with Escape key
+  if (e.key === "Escape" && modal.style.display === "block") {
+    closeServiceModal()
+  }
+
+  // Close mobile menu with Escape key
+  if (e.key === "Escape" && navMenu.classList.contains("active")) {
+    navMenu.classList.remove("active")
+    navToggle.classList.remove("active")
+  }
+})
 
 // Focus management for modal
-modal.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-        const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-        
-        if (e.shiftKey) {
-            if (document.activeElement === firstElement) {
-                lastElement.focus();
-                e.preventDefault();
-            }
-        } else {
-            if (document.activeElement === lastElement) {
-                firstElement.focus();
-                e.preventDefault();
-            }
-        }
+modal.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") {
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+    )
+    const firstElement = focusableElements[0]
+    const lastElement = focusableElements[focusableElements.length - 1]
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstElement) {
+        lastElement.focus()
+        e.preventDefault()
+      }
+    } else {
+      if (document.activeElement === lastElement) {
+        firstElement.focus()
+        e.preventDefault()
+      }
     }
-});
+  }
+})
 
 // Error handling for images
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('error', function() {
-        this.src = 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop';
-        this.alt = 'Imagem não disponível';
-    });
-});
+document.querySelectorAll("img").forEach((img) => {
+  img.addEventListener("error", function () {
+    this.src =
+      "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop"
+    this.alt = "Imagem não disponível"
+  })
+})
 
-console.log('SEMPRE Website loaded successfully!');
+window.addEventListener("load", () => {
+  const loadingScreen = document.getElementById("loadingScreen")
+
+  // Simulate loading time and hide loading screen
+  setTimeout(() => {
+    loadingScreen.classList.add("hidden")
+    // Remove from DOM after transition
+    setTimeout(() => {
+      loadingScreen.remove()
+    }, 500)
+  }, 3000) // 3 seconds loading time
+})
+
+let currentSlideIndex = 0
+const slides = document.querySelectorAll(".carousel-slide")
+const indicators = document.querySelectorAll(".indicator")
+
+function showSlide(index) {
+  // Hide all slides
+  slides.forEach((slide) => slide.classList.remove("active"))
+  indicators.forEach((indicator) => indicator.classList.remove("active"))
+
+  // Show current slide
+  slides[index].classList.add("active")
+  indicators[index].classList.add("active")
+}
+
+function changeSlide(direction) {
+  currentSlideIndex += direction
+
+  if (currentSlideIndex >= slides.length) {
+    currentSlideIndex = 0
+  } else if (currentSlideIndex < 0) {
+    currentSlideIndex = slides.length - 1
+  }
+
+  showSlide(currentSlideIndex)
+}
+
+function currentSlide(index) {
+  currentSlideIndex = index - 1
+  showSlide(currentSlideIndex)
+}
+
+// Auto-advance carousel
+setInterval(() => {
+  changeSlide(1)
+}, 5000) // Change slide every 5 seconds
+
+console.log("SEMPRE Website loaded successfully with new features!")
