@@ -444,36 +444,29 @@ document.querySelectorAll("img").forEach((img) => {
 // Loading screen with progress bar
 document.addEventListener("DOMContentLoaded", () => {
   const loadingScreen = document.getElementById("loadingScreen")
-
-  // Simulate progress of loading more quickly
-  let progress = 0
   const progressBar = document.querySelector(".loading-bar")
+  let progress = 0
 
   const loadingInterval = setInterval(() => {
-    progress += Math.random() * 15 + 5 // Random increment between 5-20%
-
+    progress += Math.random() * 15 + 5
     if (progress >= 100) {
       progress = 100
       clearInterval(loadingInterval)
-
-      // Hide loading screen after completing
       setTimeout(() => {
         loadingScreen.classList.add("hidden")
-        // Remove from DOM after transition
         setTimeout(() => {
           if (loadingScreen && loadingScreen.parentNode) {
             loadingScreen.remove()
           }
         }, 500)
-      }, 500) // Small pause after reaching 100%
+      }, 500)
     }
-
     if (progressBar) {
       progressBar.style.width = progress + "%"
     }
-  }, 100) // Update every 100ms
+  }, 100)
 
-  // Ensure loading screen disappears even if something goes wrong
+  // Garantia: remove a tela de loading após 4 segundos, mesmo se algo falhar
   setTimeout(() => {
     if (loadingScreen && !loadingScreen.classList.contains("hidden")) {
       loadingScreen.classList.add("hidden")
@@ -483,7 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, 500)
     }
-  }, 4000) // Maximum timeout of 4 seconds
+  }, 4000)
 })
 
 // Observe elements for animation
