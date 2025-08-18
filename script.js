@@ -645,58 +645,6 @@ class HeroCarousel {
       });
     });
     
-    // Add keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        this.stopAutoPlay();
-        this.prevSlide();
-        this.startAutoPlay();
-      } else if (e.key === 'ArrowRight') {
-        this.stopAutoPlay();
-        this.nextSlide();
-        this.startAutoPlay();
-      }
-    });
-    
-    // Add touch/swipe support
-    this.initTouchSupport();
-  }
-  
-  initTouchSupport() {
-    const heroSection = document.querySelector('.hero');
-    if (!heroSection) return;
-    
-    let startX = 0;
-    let startY = 0;
-    let endX = 0;
-    let endY = 0;
-    
-    heroSection.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-    }, { passive: true });
-    
-    heroSection.addEventListener('touchend', (e) => {
-      endX = e.changedTouches[0].clientX;
-      endY = e.changedTouches[0].clientY;
-      
-      const deltaX = endX - startX;
-      const deltaY = endY - startY;
-      
-      // Only handle horizontal swipes
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-        this.stopAutoPlay();
-        
-        if (deltaX > 0) {
-          this.prevSlide();
-        } else {
-          this.nextSlide();
-        }
-        
-        this.startAutoPlay();
-      }
-    }, { passive: true });
-    
     // Pause on hover
     const heroSection = document.querySelector('.hero');
     heroSection?.addEventListener('mouseenter', () => this.stopAutoPlay());
