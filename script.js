@@ -221,8 +221,7 @@ class SempreWebsite {
         const targetElement = document.querySelector(targetId);
         
         if (targetElement) {
-          const headerHeight = document.querySelector('.header').offsetHeight;
-          const targetPosition = targetElement.offsetTop - headerHeight;
+          const targetPosition = targetElement.offsetTop;
           
           window.scrollTo({
             top: targetPosition,
@@ -268,12 +267,11 @@ class SempreWebsite {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
     const scrollY = window.scrollY;
-    const headerHeight = document.querySelector('.header').offsetHeight;
 
     let currentSection = '';
 
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - headerHeight - 100;
+      const sectionTop = section.offsetTop - 100;
       const sectionHeight = section.offsetHeight;
       
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
@@ -317,8 +315,7 @@ class SempreWebsite {
         e.preventDefault();
         const contactSection = document.getElementById('contato');
         if (contactSection) {
-          const headerHeight = document.querySelector('.header').offsetHeight;
-          const targetPosition = contactSection.offsetTop - headerHeight;
+          const targetPosition = contactSection.offsetTop;
           
           window.scrollTo({
             top: targetPosition,

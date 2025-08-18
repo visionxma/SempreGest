@@ -217,13 +217,13 @@ body {
 
 /* Header */
 .header {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  z-index: 1000;
+  z-index: 100;
   transition: all 0.3s ease;
   border-bottom: 1px solid #e5e7eb;
 }
@@ -237,7 +237,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 
 .logo {
@@ -305,12 +305,13 @@ body {
 /* Hero Section */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
   overflow: hidden;
+  margin-top: 0;
 }
 
 /* Hero Carousel Styles */
@@ -1377,6 +1378,7 @@ body {
     visibility: hidden;
     transform: translateY(-20px);
     transition: all 0.3s ease;
+    z-index: 1000;
   }
   
   .nav.active {
@@ -1411,6 +1413,14 @@ body {
   
   .mobile-menu-btn.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -6px);
+  }
+  
+  .header-content {
+    padding: 1rem 0;
+  }
+  
+  .hero {
+    min-height: 85vh;
   }
   
   .section {
@@ -1485,6 +1495,14 @@ body {
 }
 
 @media (max-width: 480px) {
+  .header-content {
+    padding: 0.75rem 0;
+  }
+  
+  .hero {
+    min-height: 80vh;
+  }
+  
   .hero-title {
     font-size: clamp(1.8rem, 8vw, 2.5rem);
   }
