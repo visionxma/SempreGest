@@ -194,6 +194,14 @@ class SempreWebsite {
           mobileMenuBtn.classList.remove('active');
         }
       });
+      
+      // Close menu on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          nav.classList.remove('active');
+          mobileMenuBtn.classList.remove('active');
+        }
+      });
     }
   }
 
@@ -295,6 +303,40 @@ class SempreWebsite {
         input.addEventListener('input', () => this.clearFieldError(input));
       });
     }
+    
+    // Initialize CTA buttons
+    this.initCTAButtons();
+  }
+
+  initCTAButtons() {
+    // Handle all CTA buttons that should scroll to contact
+    const ctaButtons = document.querySelectorAll('a[href="#contato"]');
+    
+    ctaButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const contactSection = document.getElementById('contato');
+        if (contactSection) {
+          const headerHeight = document.querySelector('.header').offsetHeight;
+          const targetPosition = contactSection.offsetTop - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Handle WhatsApp buttons
+    const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
+    whatsappButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        // Let the default behavior happen (open WhatsApp)
+        // But also track the interaction
+        console.log('WhatsApp button clicked');
+      });
+    });
   }
 
   async handleFormSubmit(e) {
@@ -538,6 +580,16 @@ class SempreWebsite {
     if (this.universe) {
       this.universe.handleResize();
     }
+    
+    // Close mobile menu on resize to larger screen
+    if (window.innerWidth > 768) {
+      const nav = document.getElementById('nav');
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      if (nav && mobileMenuBtn) {
+        nav.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+      }
+    }
   }
 
   handleVisibilityChange() {
@@ -603,16 +655,60 @@ class HeroCarousel {
     
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
+      if (e.key === 'ArrowLeft' && this.isCarouselFocused()) {
         this.stopAutoPlay();
         this.prevSlide();
         this.startAutoPlay();
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === 'ArrowRight' && this.isCarouselFocused()) {
         this.stopAutoPlay();
         this.nextSlide();
         this.startAutoPlay();
       }
     });
+    
+    // Touch/swipe support for mobile
+    this.initTouchSupport();
+  }
+  
+  isCarouselFocused() {
+    const heroSection = document.querySelector('.hero');
+    return heroSection && heroSection.contains(document.activeElement);
+  }
+  
+  initTouchSupport() {
+    const heroSection = document.querySelector('.hero');
+    if (!heroSection) return;
+    
+    let startX = 0;
+    let startY = 0;
+    let endX = 0;
+    let endY = 0;
+    
+    heroSection.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    heroSection.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX;
+      endY = e.changedTouches[0].clientY;
+      
+      const deltaX = endX - startX;
+      const deltaY = endY - startY;
+      
+      // Only handle horizontal swipes
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        this.stopAutoPlay();
+        
+        if (deltaX > 0) {
+          this.prevSlide();
+        } else {
+          this.nextSlide();
+        }
+        
+        this.startAutoPlay();
+      }
+    }, { passive: true });
   }
   
   goToSlide(index) {
@@ -739,5 +835,29 @@ class CleanBackground {
   }
 }
 
+// Utility function to check if device is mobile
+function isMobileDevice() {
+  return window.innerWidth <= 768 || 
+         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Utility function to debounce function calls
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
 // Initialize the website
 const sempreWebsite = new SempreWebsite();
+
+// Add resize listener with debounce
+window.addEventListener('resize', debounce(() => {
+  sempreWebsite.handleResize();
+}, 250));
