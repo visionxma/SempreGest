@@ -75,8 +75,9 @@ class SempreWebsite {
     if (!codeLines) return;
 
     const messages = [
-      'Carregando SEMPRE...',
-      'Preparando experiência...',
+      'Iniciando SEMPRE...',
+      'Carregando recursos...',
+      'Preparando interface...',
       'Quase pronto!'
     ];
 
@@ -94,10 +95,10 @@ class SempreWebsite {
     const particlesContainer = document.getElementById('code-particles');
     if (!particlesContainer) return;
 
-    const particles = ['●', '◆', '▲', '■', '♦', '★', '✦', '◉'];
+    const particles = ['●', '◆', '▲', '■', '♦'];
 
     // Create 10 floating particles
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       setTimeout(() => {
         const particle = document.createElement('div');
         particle.className = 'code-particle';
@@ -116,7 +117,7 @@ class SempreWebsite {
           if (particle.parentNode) {
             particle.remove();
           }
-        }, 6000);
+        }, 4000);
       }, i * 200);
     }
   }
@@ -129,11 +130,11 @@ class SempreWebsite {
 
     const messages = [
       {
-        main: 'Preparando uma nova experiência',
+        main: 'Preparando experiência profissional',
         sub: 'Carregando recursos...'
       },
       {
-        main: 'Otimizando performance',
+        main: 'Configurando interface',
         sub: 'Configurando interface...'
       },
       {
@@ -507,15 +508,15 @@ class SempreWebsite {
   initBackgroundEffects() {
     // Only initialize if not on mobile for performance
     if (window.innerWidth > 768) {
-      this.initSimpleBackground();
+      this.initCleanBackground();
     }
   }
 
-  initSimpleBackground() {
+  initCleanBackground() {
     const canvas = document.getElementById('universe-canvas');
     if (!canvas) return;
 
-    this.universe = new SimpleBackground(canvas);
+    this.universe = new CleanBackground(canvas);
   }
 
   // Utility Functions
@@ -651,12 +652,12 @@ class HeroCarousel {
   }
 }
 
-// Simple Background Class - Clean and minimal
-class SimpleBackground {
+// Clean Background Class - Professional and minimal
+class CleanBackground {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-    this.shapes = [];
+    this.elements = [];
     this.isRunning = true;
     
     this.init();
@@ -665,7 +666,7 @@ class SimpleBackground {
 
   init() {
     this.handleResize();
-    this.createShapes();
+    this.createElements();
   }
 
   handleResize() {
@@ -673,49 +674,50 @@ class SimpleBackground {
     this.canvas.height = window.innerHeight;
   }
 
-  createShapes() {
-    this.shapes = [];
-    const numShapes = Math.min(20, Math.floor((this.canvas.width * this.canvas.height) / 50000));
+  createElements() {
+    this.elements = [];
+    const numElements = Math.min(15, Math.floor((this.canvas.width * this.canvas.height) / 60000));
     
-    for (let i = 0; i < numShapes; i++) {
-      this.shapes.push({
+    for (let i = 0; i < numElements; i++) {
+      this.elements.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        size: Math.random() * 4 + 2,
-        opacity: Math.random() * 0.3 + 0.1,
-        speed: Math.random() * 0.5 + 0.2,
+        size: Math.random() * 3 + 1,
+        opacity: Math.random() * 0.15 + 0.05,
+        speed: Math.random() * 0.3 + 0.1,
         direction: Math.random() * Math.PI * 2
       });
     }
   }
 
   draw() {
-    // Clear canvas with subtle gradient
+    // Clear canvas with clean background
     const gradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
     gradient.addColorStop(0, '#ffffff');
-    gradient.addColorStop(1, '#f8f9fa');
+    gradient.addColorStop(0.5, '#f9fafb');
+    gradient.addColorStop(1, '#ffffff');
     
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Draw simple shapes
-    this.shapes.forEach(shape => {
+    // Draw clean geometric elements
+    this.elements.forEach(element => {
       // Update position
-      shape.x += Math.cos(shape.direction) * shape.speed;
-      shape.y += Math.sin(shape.direction) * shape.speed;
+      element.x += Math.cos(element.direction) * element.speed;
+      element.y += Math.sin(element.direction) * element.speed;
       
       // Wrap around edges
-      if (shape.x < 0) shape.x = this.canvas.width;
-      if (shape.x > this.canvas.width) shape.x = 0;
-      if (shape.y < 0) shape.y = this.canvas.height;
-      if (shape.y > this.canvas.height) shape.y = 0;
+      if (element.x < 0) element.x = this.canvas.width;
+      if (element.x > this.canvas.width) element.x = 0;
+      if (element.y < 0) element.y = this.canvas.height;
+      if (element.y > this.canvas.height) element.y = 0;
       
-      // Draw shape
+      // Draw element
       this.ctx.save();
-      this.ctx.globalAlpha = shape.opacity;
+      this.ctx.globalAlpha = element.opacity;
       this.ctx.fillStyle = '#4ade80';
       this.ctx.beginPath();
-      this.ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2);
+      this.ctx.arc(element.x, element.y, element.size, 0, Math.PI * 2);
       this.ctx.fill();
       this.ctx.restore();
     });
