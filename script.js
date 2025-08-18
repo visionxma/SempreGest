@@ -1,7 +1,6 @@
-// VisionX - Modern Professional Website JavaScript
-// Adaptado para SEMPRE - Gestão de Projetos e Negócios Empresariais
+// SEMPRE - Website JavaScript
+// Design limpo inspirado na LinkedBy com cores branco, preto e verde claro
 
-// Performance optimized script with enhanced functionality
 class SempreWebsite {
   constructor() {
     this.isLoaded = false;
@@ -41,7 +40,6 @@ class SempreWebsite {
     this.initMobileMenu();
     this.initSmoothScrolling();
     this.initHeroCarousel();
-    this.initFAQ();
     this.initContactForm();
     this.initAnimations();
   }
@@ -49,7 +47,6 @@ class SempreWebsite {
   onWindowLoad() {
     this.hideLoadingScreen();
     this.initBackgroundEffects();
-    this.initCounters();
     this.isLoaded = true;
   }
 
@@ -63,37 +60,33 @@ class SempreWebsite {
         if (this.isLoaded) {
           this.hideLoadingScreen();
         }
-      }, 3000);
+      }, 2500);
     }
   }
 
   initLoadingAnimation() {
-    this.createCodeLines();
+    this.createLoadingContent();
     this.createFloatingParticles();
     this.startLoadingMessages();
   }
 
-  createCodeLines() {
+  createLoadingContent() {
     const codeLines = document.getElementById('code-lines');
     if (!codeLines) return;
 
-    const codes = [
-      { type: 'comment', text: '// Inicializando SEMPRE...' },
-      { type: 'keyword', text: 'import React from "react";' },
-      { type: 'keyword', text: 'const SEMPRE = () => {' },
-      { type: 'string', text: '  return "Impacto social";' },
-      { type: 'keyword', text: '};' },
-      { type: 'comment', text: '// Carregando recursos...' },
-      { type: 'keyword', text: 'export default SEMPRE;' }
+    const messages = [
+      'Carregando SEMPRE...',
+      'Preparando experiência...',
+      'Quase pronto!'
     ];
 
-    codes.forEach((code, index) => {
+    messages.forEach((message, index) => {
       setTimeout(() => {
         const line = document.createElement('div');
-        line.className = `code-line ${code.type}`;
-        line.textContent = code.text;
+        line.className = 'code-line';
+        line.textContent = message;
         codeLines.appendChild(line);
-      }, index * 300);
+      }, index * 500);
     });
   }
 
@@ -101,14 +94,10 @@ class SempreWebsite {
     const particlesContainer = document.getElementById('code-particles');
     if (!particlesContainer) return;
 
-    const particles = [
-      '{ }', '< >', '[ ]', '( )', '=>', '&&', '||', '++', '--', '===',
-      'var', 'let', 'const', 'function', 'class', 'import', 'export',
-      '0', '1', 'true', 'false', 'null', 'undefined', 'async', 'await'
-    ];
+    const particles = ['●', '◆', '▲', '■', '♦', '★', '✦', '◉'];
 
-    // Create 15 floating particles
-    for (let i = 0; i < 15; i++) {
+    // Create 10 floating particles
+    for (let i = 0; i < 10; i++) {
       setTimeout(() => {
         const particle = document.createElement('div');
         particle.className = 'code-particle';
@@ -120,9 +109,6 @@ class SempreWebsite {
         // Random animation delay
         particle.style.animationDelay = Math.random() * 2 + 's';
         
-        // Random color (blue or green)
-        particle.style.color = Math.random() > 0.5 ? '#00d4ff' : '#00ff88';
-        
         particlesContainer.appendChild(particle);
         
         // Remove particle after animation completes
@@ -130,7 +116,7 @@ class SempreWebsite {
           if (particle.parentNode) {
             particle.remove();
           }
-        }, 8000);
+        }, 6000);
       }, i * 200);
     }
   }
@@ -143,15 +129,15 @@ class SempreWebsite {
 
     const messages = [
       {
-        main: 'Preparando uma nova experiência para você',
-        sub: 'Inicializando componentes...'
+        main: 'Preparando uma nova experiência',
+        sub: 'Carregando recursos...'
       },
       {
-        main: 'Carregando recursos avançados',
-        sub: 'Otimizando performance...'
+        main: 'Otimizando performance',
+        sub: 'Configurando interface...'
       },
       {
-        main: 'Finalizando configurações',
+        main: 'Finalizando',
         sub: 'Quase pronto!'
       }
     ];
@@ -163,7 +149,7 @@ class SempreWebsite {
         messageElement.textContent = messages[currentIndex].main;
         subMessageElement.textContent = messages[currentIndex].sub;
         currentIndex++;
-        setTimeout(updateMessage, 1000);
+        setTimeout(updateMessage, 800);
       }
     };
     
@@ -294,29 +280,6 @@ class SempreWebsite {
     });
   }
 
-  // FAQ Functionality
-  initFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        
-        // Close all other FAQ items
-        faqItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('active');
-          }
-        });
-        
-        // Toggle current item
-        item.classList.toggle('active', !isActive);
-      });
-    });
-  }
-
   // Contact Form
   initContactForm() {
     const form = document.getElementById('contact-form');
@@ -333,7 +296,7 @@ class SempreWebsite {
     }
   }
 
-async handleFormSubmit(e) {
+  async handleFormSubmit(e) {
     e.preventDefault();
     
     const form = e.target;
@@ -353,8 +316,6 @@ async handleFormSubmit(e) {
     const name = formData.get('name');
     const email = formData.get('email');
     const phone = formData.get('phone');
-    const projectType = formData.get('project-type');
-    const budget = formData.get('budget');
     const message = formData.get('message');
 
     // Cria a mensagem personalizada
@@ -378,27 +339,6 @@ async handleFormSubmit(e) {
     // Reset button
     submitBtn.disabled = false;
     submitBtn.innerHTML = '<span>Enviar Mensagem</span><i class="fas fa-paper-plane"></i>';
-}
-
-  async submitForm(formData) {
-    // Convert FormData to object
-    const data = {};
-    for (let [key, value] of formData.entries()) {
-      data[key] = value;
-    }
-    
-    // Here you would typically send to your backend
-    // For now, we'll simulate with a delay
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Simulate success (90% of the time)
-        if (Math.random() > 0.1) {
-          resolve(data);
-        } else {
-          reject(new Error('Simulated error'));
-        }
-      }, 2000);
-    });
   }
 
   validateForm(form) {
@@ -451,6 +391,7 @@ async handleFormSubmit(e) {
 
   showFieldError(field, message) {
     field.classList.add('error');
+    field.style.borderColor = '#ef4444';
     
     // Remove existing error message
     const existingError = field.parentNode.querySelector('.field-error');
@@ -462,7 +403,7 @@ async handleFormSubmit(e) {
     const errorElement = document.createElement('span');
     errorElement.className = 'field-error';
     errorElement.textContent = message;
-    errorElement.style.color = '#ff4444';
+    errorElement.style.color = '#ef4444';
     errorElement.style.fontSize = '0.85rem';
     errorElement.style.marginTop = '0.25rem';
     
@@ -471,6 +412,7 @@ async handleFormSubmit(e) {
 
   clearFieldError(field) {
     field.classList.remove('error');
+    field.style.borderColor = '#d1d5db';
     const errorElement = field.parentNode.querySelector('.field-error');
     if (errorElement) {
       errorElement.remove();
@@ -479,10 +421,6 @@ async handleFormSubmit(e) {
 
   showFormSuccess() {
     this.showNotification('Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
-  }
-
-  showFormError(message) {
-    this.showNotification(message, 'error');
   }
 
   showNotification(message, type = 'info') {
@@ -504,11 +442,11 @@ async handleFormSubmit(e) {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: ${type === 'success' ? '#00d4ff' : '#ff4444'};
-      color: ${type === 'success' ? '#000' : '#fff'};
+      background: ${type === 'success' ? '#4ade80' : '#ef4444'};
+      color: ${type === 'success' ? '#ffffff' : '#ffffff'};
       padding: 1rem 1.5rem;
       border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       z-index: 10000;
       transform: translateX(100%);
       transition: transform 0.3s ease;
@@ -565,62 +503,19 @@ async handleFormSubmit(e) {
     animatedElements.forEach(el => observer.observe(el));
   }
 
-  // Counter Animation
-  initCounters() {
-    const counters = document.querySelectorAll('.stat-number[data-count]');
-    
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => counterObserver.observe(counter));
-  }
-
-  animateCounter(element) {
-    const target = parseInt(element.getAttribute('data-count'));
-    const duration = 2000;
-    const step = target / (duration / 16);
-    let current = 0;
-
-    const updateCounter = () => {
-      current += step;
-      if (current >= target) {
-        element.textContent = target;
-      } else {
-        element.textContent = Math.floor(current);
-        requestAnimationFrame(updateCounter);
-      }
-    };
-
-    updateCounter();
-  }
-
-  // Background Effects
+  // Background Effects - Simplified
   initBackgroundEffects() {
     // Only initialize if not on mobile for performance
     if (window.innerWidth > 768) {
-      this.initUniverseBackground();
-      this.initParticleSystem();
+      this.initSimpleBackground();
     }
   }
 
-  initUniverseBackground() {
+  initSimpleBackground() {
     const canvas = document.getElementById('universe-canvas');
     if (!canvas) return;
 
-    this.universe = new UniverseBackground(canvas);
-  }
-
-  initParticleSystem() {
-    const canvas = document.getElementById('particles-canvas');
-    if (!canvas) return;
-
-    this.particles = new ParticleSystem(canvas);
+    this.universe = new SimpleBackground(canvas);
   }
 
   // Utility Functions
@@ -637,25 +532,10 @@ async handleFormSubmit(e) {
     };
   }
 
-  debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-
   handleResize() {
     // Reinitialize background effects on resize
     if (this.universe) {
       this.universe.handleResize();
-    }
-    if (this.particles) {
-      this.particles.handleResize();
     }
   }
 
@@ -663,11 +543,9 @@ async handleFormSubmit(e) {
     if (document.hidden) {
       // Pause animations when tab is not visible
       if (this.universe) this.universe.pause();
-      if (this.particles) this.particles.pause();
     } else {
       // Resume animations when tab becomes visible
       if (this.universe) this.universe.resume();
-      if (this.particles) this.particles.resume();
     }
   }
 }
@@ -773,12 +651,12 @@ class HeroCarousel {
   }
 }
 
-// Universe Background Class
-class UniverseBackground {
+// Simple Background Class - Clean and minimal
+class SimpleBackground {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
-    this.stars = [];
+    this.shapes = [];
     this.isRunning = true;
     
     this.init();
@@ -787,7 +665,7 @@ class UniverseBackground {
 
   init() {
     this.handleResize();
-    this.createStars();
+    this.createShapes();
   }
 
   handleResize() {
@@ -795,40 +673,49 @@ class UniverseBackground {
     this.canvas.height = window.innerHeight;
   }
 
-  createStars() {
-    this.stars = [];
-    const numStars = Math.min(100, Math.floor((this.canvas.width * this.canvas.height) / 10000));
+  createShapes() {
+    this.shapes = [];
+    const numShapes = Math.min(20, Math.floor((this.canvas.width * this.canvas.height) / 50000));
     
-    for (let i = 0; i < numStars; i++) {
-      this.stars.push({
+    for (let i = 0; i < numShapes; i++) {
+      this.shapes.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        size: Math.random() * 2 + 0.5,
-        opacity: Math.random() * 0.8 + 0.2,
-        twinkleSpeed: Math.random() * 0.02 + 0.01
+        size: Math.random() * 4 + 2,
+        opacity: Math.random() * 0.3 + 0.1,
+        speed: Math.random() * 0.5 + 0.2,
+        direction: Math.random() * Math.PI * 2
       });
     }
   }
 
   draw() {
-    // Clear canvas with gradient background
+    // Clear canvas with subtle gradient
     const gradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
-    gradient.addColorStop(0, '#0a0a0a');
-    gradient.addColorStop(1, '#1a1a1a');
+    gradient.addColorStop(0, '#ffffff');
+    gradient.addColorStop(1, '#f8f9fa');
     
     this.ctx.fillStyle = gradient;
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Draw stars
-    this.stars.forEach(star => {
-      star.opacity += Math.sin(Date.now() * star.twinkleSpeed) * 0.1;
-      star.opacity = Math.max(0.1, Math.min(1, star.opacity));
+    // Draw simple shapes
+    this.shapes.forEach(shape => {
+      // Update position
+      shape.x += Math.cos(shape.direction) * shape.speed;
+      shape.y += Math.sin(shape.direction) * shape.speed;
       
+      // Wrap around edges
+      if (shape.x < 0) shape.x = this.canvas.width;
+      if (shape.x > this.canvas.width) shape.x = 0;
+      if (shape.y < 0) shape.y = this.canvas.height;
+      if (shape.y > this.canvas.height) shape.y = 0;
+      
+      // Draw shape
       this.ctx.save();
-      this.ctx.globalAlpha = star.opacity;
-      this.ctx.fillStyle = '#ffffff';
+      this.ctx.globalAlpha = shape.opacity;
+      this.ctx.fillStyle = '#4ade80';
       this.ctx.beginPath();
-      this.ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+      this.ctx.arc(shape.x, shape.y, shape.size, 0, Math.PI * 2);
       this.ctx.fill();
       this.ctx.restore();
     });
@@ -836,147 +723,6 @@ class UniverseBackground {
 
   animate() {
     if (this.isRunning) {
-      this.draw();
-    }
-    requestAnimationFrame(() => this.animate());
-  }
-
-  pause() {
-    this.isRunning = false;
-  }
-
-  resume() {
-    this.isRunning = true;
-  }
-}
-
-// Particle System Class
-class ParticleSystem {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this.particles = [];
-    this.isRunning = true;
-    this.mouse = { x: 0, y: 0 };
-    
-    this.init();
-    this.setupEvents();
-    this.animate();
-  }
-
-  init() {
-    this.handleResize();
-    this.createParticles();
-  }
-
-  handleResize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-    this.createParticles();
-  }
-
-  setupEvents() {
-    this.canvas.addEventListener('mousemove', (e) => {
-      this.mouse.x = e.clientX;
-      this.mouse.y = e.clientY;
-    });
-  }
-
-  createParticles() {
-    this.particles = [];
-    const numParticles = Math.min(50, Math.floor((this.canvas.width * this.canvas.height) / 20000));
-    
-    for (let i = 0; i < numParticles; i++) {
-      this.particles.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 3 + 1,
-        opacity: Math.random() * 0.6 + 0.2,
-        color: `hsl(${190 + Math.random() * 20}, 100%, 50%)`
-      });
-    }
-  }
-
-  updateParticles() {
-    this.particles.forEach(particle => {
-      particle.x += particle.vx;
-      particle.y += particle.vy;
-      
-      // Boundary collision
-      if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-      if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-      
-      // Keep in bounds
-      particle.x = Math.max(0, Math.min(this.canvas.width, particle.x));
-      particle.y = Math.max(0, Math.min(this.canvas.height, particle.y));
-      
-      // Mouse interaction
-      const dx = this.mouse.x - particle.x;
-      const dy = this.mouse.y - particle.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      
-      if (distance < 100) {
-        const force = (100 - distance) / 100;
-        particle.vx += (dx / distance) * force * 0.01;
-        particle.vy += (dy / distance) * force * 0.01;
-      }
-      
-      // Damping
-      particle.vx *= 0.99;
-      particle.vy *= 0.99;
-    });
-  }
-
-  drawParticles() {
-    this.particles.forEach(particle => {
-      this.ctx.save();
-      this.ctx.globalAlpha = particle.opacity;
-      this.ctx.fillStyle = particle.color;
-      this.ctx.beginPath();
-      this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      this.ctx.fill();
-      this.ctx.restore();
-    });
-  }
-
-  drawConnections() {
-    for (let i = 0; i < this.particles.length; i++) {
-      for (let j = i + 1; j < this.particles.length; j++) {
-        const dx = this.particles[i].x - this.particles[j].x;
-        const dy = this.particles[i].y - this.particles[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 120) {
-          const opacity = (120 - distance) / 120 * 0.3;
-          
-          this.ctx.save();
-          this.ctx.globalAlpha = opacity;
-          this.ctx.strokeStyle = '#00d4ff';
-          this.ctx.lineWidth = 1;
-          this.ctx.beginPath();
-          this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
-          this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-          this.ctx.stroke();
-          this.ctx.restore();
-        }
-      }
-    }
-  }
-
-  draw() {
-    // Clear with fade effect
-    this.ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    
-    this.drawConnections();
-    this.drawParticles();
-  }
-
-  animate() {
-    if (this.isRunning) {
-      this.updateParticles();
       this.draw();
     }
     requestAnimationFrame(() => this.animate());
