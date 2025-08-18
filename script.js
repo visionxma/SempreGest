@@ -1,11 +1,13 @@
 // VisionX - Modern Professional Website JavaScript
+// Adaptado para SEMPRE - Gestão de Projetos e Negócios Empresariais
 
 // Performance optimized script with enhanced functionality
-class VisionXWebsite {
+class SempreWebsite {
   constructor() {
     this.isLoaded = false;
     this.particles = null;
     this.universe = null;
+    this.heroCarousel = null;
     this.init();
   }
 
@@ -38,6 +40,7 @@ class VisionXWebsite {
   onDOMReady() {
     this.initMobileMenu();
     this.initSmoothScrolling();
+    this.initHeroCarousel();
     this.initFAQ();
     this.initContactForm();
     this.initAnimations();
@@ -75,13 +78,13 @@ class VisionXWebsite {
     if (!codeLines) return;
 
     const codes = [
-      { type: 'comment', text: '// Inicializando VisionX...' },
+      { type: 'comment', text: '// Inicializando SEMPRE...' },
       { type: 'keyword', text: 'import React from "react";' },
-      { type: 'keyword', text: 'const VisionX = () => {' },
-      { type: 'string', text: '  return "Experiência incrível";' },
+      { type: 'keyword', text: 'const SEMPRE = () => {' },
+      { type: 'string', text: '  return "Impacto social";' },
       { type: 'keyword', text: '};' },
       { type: 'comment', text: '// Carregando recursos...' },
-      { type: 'keyword', text: 'export default VisionX;' }
+      { type: 'keyword', text: 'export default SEMPRE;' }
     ];
 
     codes.forEach((code, index) => {
@@ -205,6 +208,11 @@ class VisionXWebsite {
         }
       });
     }
+  }
+
+  // Hero Carousel
+  initHeroCarousel() {
+    this.heroCarousel = new HeroCarousel();
   }
 
   // Smooth Scrolling
@@ -350,13 +358,13 @@ async handleFormSubmit(e) {
     const message = formData.get('message');
 
     // Cria a mensagem personalizada
-    const whatsappMessage = `Olá, meu nome é *${name}*.\nMeu e-mail é *${email}*.\nMeu telefone é *${phone}*.\nEstou interessado em um projeto do tipo: *${projectType}*.\nMeu orçamento estimado é: *${budget}*.\nMensagem: *${message}*`;
+    const whatsappMessage = `Olá, meu nome é *${name}*.\nMeu e-mail é *${email}*.\nMeu telefone é *${phone || 'Não informado'}*.\nMensagem: *${message}*`;
 
     // Codifica a mensagem para URL
     const encodedMessage = encodeURIComponent(whatsappMessage);
 
     // Cria o link do WhatsApp
-    const whatsappLink = `https://wa.me/5599984680391?text=${encodedMessage}`;
+    const whatsappLink = `https://wa.me/5598987100001?text=${encodedMessage}`;
 
     // Redireciona para o WhatsApp
     window.open(whatsappLink, '_blank');
@@ -664,6 +672,107 @@ async handleFormSubmit(e) {
   }
 }
 
+// Hero Carousel Class
+class HeroCarousel {
+  constructor() {
+    this.slides = document.querySelectorAll('.hero-slide');
+    this.indicators = document.querySelectorAll('.carousel-indicators .indicator');
+    this.prevBtn = document.querySelector('.prev-btn');
+    this.nextBtn = document.querySelector('.next-btn');
+    this.currentSlide = 0;
+    this.totalSlides = this.slides.length;
+    this.autoPlayInterval = null;
+    this.autoPlayDelay = 6000; // 6 seconds
+    
+    this.init();
+  }
+  
+  init() {
+    if (this.slides.length === 0) return;
+    
+    this.setupEventListeners();
+    this.startAutoPlay();
+  }
+  
+  setupEventListeners() {
+    // Navigation buttons
+    this.prevBtn?.addEventListener('click', () => {
+      this.stopAutoPlay();
+      this.prevSlide();
+      this.startAutoPlay();
+    });
+    
+    this.nextBtn?.addEventListener('click', () => {
+      this.stopAutoPlay();
+      this.nextSlide();
+      this.startAutoPlay();
+    });
+    
+    // Indicators
+    this.indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        this.stopAutoPlay();
+        this.goToSlide(index);
+        this.startAutoPlay();
+      });
+    });
+    
+    // Pause on hover
+    const heroSection = document.querySelector('.hero');
+    heroSection?.addEventListener('mouseenter', () => this.stopAutoPlay());
+    heroSection?.addEventListener('mouseleave', () => this.startAutoPlay());
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        this.stopAutoPlay();
+        this.prevSlide();
+        this.startAutoPlay();
+      } else if (e.key === 'ArrowRight') {
+        this.stopAutoPlay();
+        this.nextSlide();
+        this.startAutoPlay();
+      }
+    });
+  }
+  
+  goToSlide(index) {
+    // Remove active class from current slide and indicator
+    this.slides[this.currentSlide].classList.remove('active');
+    this.indicators[this.currentSlide].classList.remove('active');
+    
+    // Update current slide
+    this.currentSlide = index;
+    
+    // Add active class to new slide and indicator
+    this.slides[this.currentSlide].classList.add('active');
+    this.indicators[this.currentSlide].classList.add('active');
+  }
+  
+  nextSlide() {
+    const nextIndex = (this.currentSlide + 1) % this.totalSlides;
+    this.goToSlide(nextIndex);
+  }
+  
+  prevSlide() {
+    const prevIndex = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+    this.goToSlide(prevIndex);
+  }
+  
+  startAutoPlay() {
+    this.autoPlayInterval = setInterval(() => {
+      this.nextSlide();
+    }, this.autoPlayDelay);
+  }
+  
+  stopAutoPlay() {
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval);
+      this.autoPlayInterval = null;
+    }
+  }
+}
+
 // Universe Background Class
 class UniverseBackground {
   constructor(canvas) {
@@ -883,4 +992,4 @@ class ParticleSystem {
 }
 
 // Initialize the website
-const visionxWebsite = new VisionXWebsite();
+const sempreWebsite = new SempreWebsite();

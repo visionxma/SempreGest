@@ -1,4 +1,5 @@
 /* VisionX - Modern Professional Website Styles */
+/* Adaptado para SEMPRE - Gestão de Projetos e Negócios Empresariais */
 
 /* Reset and Base Styles */
 * {
@@ -348,6 +349,92 @@ body {
   justify-content: center;
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
   overflow: hidden;
+}
+
+/* Hero Carousel Styles */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.8s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.carousel-btn {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: #00d4ff;
+  transform: scale(1.1);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 5;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator.active {
+  background: #00d4ff;
+  border-color: #00d4ff;
+  transform: scale(1.2);
 }
 
 .hero-background {
@@ -709,6 +796,71 @@ body {
 .feature-item p {
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Values Section */
+.values-section {
+  margin-top: 3rem;
+}
+
+.values-section h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #00d4ff;
+  text-align: center;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.value-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 212, 255, 0.3);
+  transform: translateY(-5px);
+}
+
+.value-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.value-icon i {
+  font-size: 1.5rem;
+  color: #000000;
+}
+
+.value-content h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.value-content p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -1661,6 +1813,25 @@ body {
   font-size: 0.9rem;
 }
 
+/* Created by VisionX */
+.created-by {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.visionx-logo {
+  height: 20px;
+  filter: brightness(0.8);
+  transition: filter 0.3s ease;
+}
+
+.visionx-logo:hover {
+  filter: brightness(1);
+}
+
 /* Animations */
 [data-aos] {
   opacity: 0;
@@ -1685,6 +1856,14 @@ body {
   
   .tech-showcase {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .carousel-btn {
+    display: none;
+  }
+  
+  .carousel-nav {
+    display: none;
   }
 }
 
