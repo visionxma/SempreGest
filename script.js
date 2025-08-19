@@ -867,6 +867,7 @@ class BlogManager {
     this.filteredPosts = [];
     this.currentCategory = 'all';
     this.isLoading = false;
+    this.currentArticle = null;
     this.spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?output=csv";
     
     this.init();
@@ -939,16 +940,16 @@ class BlogManager {
       // Validate required fields
       if (post['título'] && post['conteúdo']) {
         posts.push({
-          id: i,
+          id: post['id'] || i,
           title: post['título'],
           content: post['conteúdo'],
+          redacao: post['redação'] || '',
           excerpt: this.createExcerpt(post['conteúdo']),
           date: post['data'] || new Date().toLocaleDateString('pt-BR'),
           author: post['autor'] || 'SEMPRE',
-          category: this.normalizeCategory(post['categoria'] || 'gestao'),
+          category: this.normalizeCategory(post['conteúdo']),
           image: post['imagem (opcional)'] || '',
-          link: post['link (opcional)'] || '',
-          tags: post['tags'] ? post['tags'].split(';').map(tag => tag.trim()) : []
+          linkRedacao: post['link (redação)'] || ''
         });
       }
     }
@@ -972,7 +973,13 @@ class BlogManager {
       'social': 'terceiro-setor'
     };
     
-    return categoryMap[category.toLowerCase()] || 'gestao';
+    const lowerCategory = category.toLowerCase();
+    for (const [key, value] of Object.entries(categoryMap)) {
+      if (lowerCategory.includes(key)) {
+        return value;
+      }
+    }
+    return 'gestao';
   }
   
   filterPosts(category) {
@@ -1073,22 +1080,21 @@ class BlogManager {
           <p class="blog-post-excerpt">${post.excerpt}</p>
           
           <div class="blog-post-footer">
-            ${post.link ? 
-              `<a href="${post.link}" target="_blank" rel="noopener" class="blog-post-link">
-                <span>Leia mais</span>
-                <i class="fas fa-external-link-alt"></i>
-              </a>` :
-              `<span class="blog-post-link" style="cursor: default; color: #6b7280;">
+            ${post.redacao ? 
+              `<button class="blog-post-link" onclick="blogManager.showArticle('${post.id}')">
                 <span>Artigo completo</span>
                 <i class="fas fa-arrow-right"></i>
-              </span>`
+              </button>` :
+              post.linkRedacao ? 
+                `<a href="${post.linkRedacao}" target="_blank" rel="noopener" class="blog-post-link">
+                  <span>Leia mais</span>
+                  <i class="fas fa-external-link-alt"></i>
+                </a>` :
+                `<span class="blog-post-link" style="cursor: default; color: #6b7280;">
+                  <span>Conteúdo disponível</span>
+                  <i class="fas fa-info-circle"></i>
+                </span>`
             }
-            
-            ${post.tags.length > 0 ? `
-              <div class="blog-post-tags">
-                ${post.tags.slice(0, 3).map(tag => `<span class="blog-post-tag">${tag}</span>`).join('')}
-              </div>
-            ` : ''}
           </div>
         </div>
       </article>
@@ -1104,6 +1110,278 @@ class BlogManager {
         post.style.transform = 'translateY(0)';
       });
     }, 100);
+  }
+  
+  showArticle(postId) {
+    const post = this.posts.find(p => p.id == postId);
+    if (!post || !post.redacao) return;
+    
+    this.currentArticle = post;
+    
+    // Hide blog list and show article
+    const blogPosts = document.getElementById('blog-posts');
+    const blogNav = document.querySelector('.blog-nav');
+    const sectionHeader = document.querySelector('#blog .section-header');
+    const blogActions = document.querySelector('.blog-actions');
+    
+    blogPosts.style.display = 'none';
+    blogNav.style.display = 'none';
+    sectionHeader.style.display = 'none';
+    blogActions.style.display = 'none';
+    
+    // Create and show article view
+    this.renderArticle();
+  }
+  
+  renderArticle() {
+    const post = this.currentArticle;
+    if (!post) return;
+    
+    const blogSection = document.getElementById('blog');
+    
+    // Create article container
+    const articleHTML = `
+      <div id="blog-article" class="blog-article-container">
+        <div class="container">
+          <!-- Article Header -->
+          <div class="article-header">
+            <button class="back-to-blog-btn" onclick="blogManager.backToBlog()">
+              <i class="fas fa-arrow-left"></i>
+              <span>Voltar aos artigos</span>
+            </button>
+            
+            <div class="article-meta">
+              <div class="article-category">${this.getCategoryName(post.category)}</div>
+              <div class="article-date">
+                <i class="fas fa-calendar-alt"></i>
+                <span>${post.date}</span>
+              </div>
+              <div class="article-author">
+                <i class="fas fa-user"></i>
+                <span>${post.author}</span>
+              </div>
+            </div>
+            
+            <h1 class="article-title">${post.title}</h1>
+            
+            ${post.image ? `
+              <div class="article-featured-image">
+                <img src="${post.image}" alt="${post.title}" />
+              </div>
+            ` : ''}
+          </div>
+          
+          <!-- Article Content -->
+          <div class="article-content">
+            <div class="article-body">
+              ${this.formatArticleContent(post.redacao)}
+            </div>
+            
+            ${post.linkRedacao ? `
+              <div class="article-external-link">
+                <a href="${post.linkRedacao}" target="_blank" rel="noopener" class="external-link-btn">
+                  <i class="fas fa-external-link-alt"></i>
+                  <span>Ver artigo original</span>
+                </a>
+              </div>
+            ` : ''}
+          </div>
+          
+          <!-- Article Footer -->
+          <div class="article-footer">
+            <div class="article-share">
+              <h4>Compartilhar artigo:</h4>
+              <div class="share-buttons">
+                <button class="share-btn whatsapp" onclick="blogManager.shareArticle('whatsapp')">
+                  <i class="fab fa-whatsapp"></i>
+                  <span>WhatsApp</span>
+                </button>
+                <button class="share-btn facebook" onclick="blogManager.shareArticle('facebook')">
+                  <i class="fab fa-facebook"></i>
+                  <span>Facebook</span>
+                </button>
+                <button class="share-btn linkedin" onclick="blogManager.shareArticle('linkedin')">
+                  <i class="fab fa-linkedin"></i>
+                  <span>LinkedIn</span>
+                </button>
+                <button class="share-btn copy" onclick="blogManager.shareArticle('copy')">
+                  <i class="fas fa-link"></i>
+                  <span>Copiar link</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="back-to-blog-footer">
+              <button class="cta-button secondary" onclick="blogManager.backToBlog()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar aos artigos</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Insert article HTML
+    blogSection.insertAdjacentHTML('beforeend', articleHTML);
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Update page title
+    document.title = `${post.title} - SEMPRE`;
+  }
+  
+  formatArticleContent(content) {
+    if (!content) return '';
+    
+    // Split content by paragraphs and format
+    const paragraphs = content.split('\n').filter(p => p.trim());
+    
+    return paragraphs.map(paragraph => {
+      const trimmed = paragraph.trim();
+      
+      // Check if it's an image URL
+      if (this.isImageUrl(trimmed)) {
+        return `<div class="article-image"><img src="${trimmed}" alt="Imagem do artigo" loading="lazy" /></div>`;
+      }
+      
+      // Check if it's a heading (starts with #)
+      if (trimmed.startsWith('#')) {
+        const level = (trimmed.match(/^#+/) || [''])[0].length;
+        const text = trimmed.replace(/^#+\s*/, '');
+        return `<h${Math.min(level + 1, 6)} class="article-heading">${text}</h${Math.min(level + 1, 6)}>`;
+      }
+      
+      // Regular paragraph
+      return `<p class="article-paragraph">${trimmed}</p>`;
+    }).join('');
+  }
+  
+  isImageUrl(url) {
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+    const lowerUrl = url.toLowerCase();
+    return imageExtensions.some(ext => lowerUrl.includes(ext)) || 
+           lowerUrl.includes('images.') || 
+           lowerUrl.includes('img.') ||
+           lowerUrl.includes('photo') ||
+           lowerUrl.includes('picture');
+  }
+  
+  backToBlog() {
+    // Remove article view
+    const articleContainer = document.getElementById('blog-article');
+    if (articleContainer) {
+      articleContainer.remove();
+    }
+    
+    // Show blog list elements
+    const blogPosts = document.getElementById('blog-posts');
+    const blogNav = document.querySelector('.blog-nav');
+    const sectionHeader = document.querySelector('#blog .section-header');
+    const blogActions = document.querySelector('.blog-actions');
+    
+    if (blogPosts) blogPosts.style.display = 'grid';
+    if (blogNav) blogNav.style.display = 'flex';
+    if (sectionHeader) sectionHeader.style.display = 'block';
+    if (blogActions) blogActions.style.display = 'block';
+    
+    // Reset page title
+    document.title = 'Principais Notícias - Artigos sobre Gestão de Projetos Sociais';
+    
+    this.currentArticle = null;
+  }
+  
+  shareArticle(platform) {
+    if (!this.currentArticle) return;
+    
+    const post = this.currentArticle;
+    const url = window.location.href;
+    const title = post.title;
+    const text = post.excerpt || post.content.substring(0, 150) + '...';
+    
+    switch (platform) {
+      case 'whatsapp':
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${title}\n\n${text}\n\n${url}`)}`;
+        window.open(whatsappUrl, '_blank');
+        break;
+        
+      case 'facebook':
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        window.open(facebookUrl, '_blank');
+        break;
+        
+      case 'linkedin':
+        const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        window.open(linkedinUrl, '_blank');
+        break;
+        
+      case 'copy':
+        navigator.clipboard.writeText(url).then(() => {
+          this.showNotification('Link copiado para a área de transferência!', 'success');
+        }).catch(() => {
+          this.showNotification('Erro ao copiar link', 'error');
+        });
+        break;
+    }
+  }
+  
+  showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `blog-notification blog-notification-${type}`;
+    notification.innerHTML = `
+      <div class="notification-content">
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+        <span>${message}</span>
+        <button class="notification-close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    `;
+    
+    // Add styles
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+      color: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      max-width: 400px;
+    `;
+    
+    // Add to DOM
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Close functionality
+    const closeBtn = notification.querySelector('.notification-close');
+    closeBtn.addEventListener('click', () => {
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    });
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }
+    }, 5000);
   }
 }
 

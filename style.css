@@ -265,9 +265,13 @@ body {
   gap: 0.5rem;
   color: #01253f;
   text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  font-family: inherit;
 }
 
 .blog-post-link:hover {
@@ -380,6 +384,276 @@ body {
 }
 
 /* Responsive Design for Blog */
+
+/* Blog Article Page Styles */
+.blog-article-container {
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.article-header {
+  margin-bottom: 3rem;
+}
+
+.back-to-blog-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: #6b7280;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.back-to-blog-btn:hover {
+  background: #01253f;
+  border-color: #01253f;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.article-category {
+  background: linear-gradient(135deg, #01253f, #02355a);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.article-date,
+.article-author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.article-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.article-featured-image {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.article-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.article-body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #374151;
+  margin-bottom: 3rem;
+}
+
+.article-paragraph {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.article-heading {
+  color: #1a1a1a;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  line-height: 1.3;
+}
+
+.article-heading:first-child {
+  margin-top: 0;
+}
+
+.article-image {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.article-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.article-external-link {
+  text-align: center;
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 15px;
+}
+
+.external-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #01253f, #02355a);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.external-link-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(1, 37, 63, 0.3);
+}
+
+.article-footer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 3rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.article-share {
+  margin-bottom: 3rem;
+}
+
+.article-share h4 {
+  color: #1a1a1a;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.share-btn.whatsapp {
+  background: #25d366;
+  color: #ffffff;
+}
+
+.share-btn.whatsapp:hover {
+  background: #128c7e;
+  transform: translateY(-2px);
+}
+
+.share-btn.facebook {
+  background: #1877f2;
+  color: #ffffff;
+}
+
+.share-btn.facebook:hover {
+  background: #166fe5;
+  transform: translateY(-2px);
+}
+
+.share-btn.linkedin {
+  background: #0a66c2;
+  color: #ffffff;
+}
+
+.share-btn.linkedin:hover {
+  background: #004182;
+  transform: translateY(-2px);
+}
+
+.share-btn.copy {
+  background: #6b7280;
+  color: #ffffff;
+}
+
+.share-btn.copy:hover {
+  background: #4b5563;
+  transform: translateY(-2px);
+}
+
+.back-to-blog-footer {
+  text-align: center;
+}
+
+/* Blog Notification Styles */
+.blog-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+}
+
+.blog-notification .notification-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+}
+
+.blog-notification .notification-close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: auto;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.blog-notification .notification-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design for Article Page */
 @media (max-width: 1024px) {
   .blog-posts {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -393,6 +667,16 @@ body {
   .blog-nav-btn {
     padding: 0.6rem 1.2rem;
     font-size: 0.85rem;
+  }
+  
+  .article-content,
+  .article-footer {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .share-buttons {
+    justify-content: center;
   }
 }
 
@@ -433,6 +717,31 @@ body {
     gap: 1rem;
     align-items: flex-start;
   }
+  
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .article-title {
+    font-size: clamp(1.5rem, 6vw, 2.5rem);
+  }
+  
+  .article-body {
+    font-size: 1rem;
+  }
+  
+  .share-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .share-btn {
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -464,6 +773,38 @@ body {
   .blog-empty,
   .blog-error {
     padding: 3rem 1rem;
+  }
+  
+  .blog-article-container {
+    padding: 1rem 0;
+  }
+  
+  .article-header {
+    margin-bottom: 2rem;
+  }
+  
+  .back-to-blog-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .article-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+  
+  .article-paragraph {
+    margin-bottom: 1.25rem;
+  }
+  
+  .external-link-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .share-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
   }
 }
 
