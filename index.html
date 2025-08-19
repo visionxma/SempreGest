@@ -432,20 +432,56 @@
     </div>
   </section>
   <!-- Blog Section -->
-
-    <section id="blog" style="display: none;">
-        <div class="blog-container">
-            <h2>Últimas Publicações</h2>
-            
-            <!-- Container de Posts com Estado de Loading -->
-            <div id="posts">
-                <div class="loading-container">
-                    <div class="loading-spinner"></div>
-                    <span class="loading-text">Carregando publicações...</span>
-                </div>
-            </div>
+  <section id="blog" class="blog-section section" style="display: none;">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="section-title">Blog SEMPRE</h2>
+        <div class="section-line"></div>
+        <p class="section-subtitle">Artigos, insights e novidades sobre gestão de projetos sociais</p>
+      </div>
+      
+      <!-- Blog Navigation -->
+      <div class="blog-nav" data-aos="fade-up" data-aos-delay="100">
+        <button class="blog-nav-btn active" data-category="all">
+          <i class="fas fa-th-large"></i>
+          <span>Todos os Posts</span>
+        </button>
+        <button class="blog-nav-btn" data-category="gestao">
+          <i class="fas fa-cogs"></i>
+          <span>Gestão</span>
+        </button>
+        <button class="blog-nav-btn" data-category="projetos">
+          <i class="fas fa-project-diagram"></i>
+          <span>Projetos</span>
+        </button>
+        <button class="blog-nav-btn" data-category="terceiro-setor">
+          <i class="fas fa-heart"></i>
+          <span>Terceiro Setor</span>
+        </button>
+      </div>
+      
+      <!-- Blog Posts Container -->
+      <div class="blog-posts" id="blog-posts">
+        <!-- Loading State -->
+        <div class="blog-loading" id="blog-loading">
+          <div class="loading-animation">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Carregando publicações...</p>
+          </div>
         </div>
-    </section>
+        
+        <!-- Posts will be loaded here -->
+      </div>
+      
+      <!-- Back to Home Button -->
+      <div class="blog-actions" data-aos="fade-up">
+        <button onclick="mostrarHome()" class="cta-button secondary">
+          <i class="fas fa-arrow-left"></i>
+          <span>Voltar ao Início</span>
+        </button>
+      </div>
+    </div>
+  </section>
 
   <!-- Contact Section -->
   <section id="contato" class="contact-section section">

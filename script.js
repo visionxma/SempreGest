@@ -860,100 +860,308 @@ const sempreWebsite = new SempreWebsite();
 window.addEventListener('resize', debounce(() => {
   sempreWebsite.handleResize();
 }, 250));
-function mostrarHome() {
-  // Mostra todas as seções normais
-  document.getElementById("inicio").style.display = "block";
-  document.getElementById("sobre").style.display = "block";
-  document.getElementById("servicos").style.display = "block";
-  document.getElementById("depoimentos").style.display = "block";
-  document.getElementById("contato").style.display = "block";
+// Blog Management Class
+class BlogManager {
+  constructor() {
+    this.posts = [];
+    this.filteredPosts = [];
+    this.currentCategory = 'all';
+    this.isLoading = false;
+    this.spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?output=csv";
+    
+    this.init();
+  }
   
-  // Esconde o blog
-  document.getElementById("blog").style.display = "none";
-}
-
-function mostrarBlog() {
-  // Esconde todas as seções normais
-  document.getElementById("inicio").style.display = "none";
-  document.getElementById("sobre").style.display = "none";
-  document.getElementById("servicos").style.display = "none";
-  document.getElementById("depoimentos").style.display = "none";
-  document.getElementById("contato").style.display = "none";
-
-  // Mostra o blog
-  document.getElementById("blog").style.display = "block";
-
-  // Se quiser, pode carregar os posts automaticamente daqui
-  carregarPosts();
-}
-
-// Exemplo de função que pode puxar posts de uma API ou planilha
-function carregarPosts() {
-  const postsContainer = document.getElementById("posts");
-
-  // Exemplo fake (substitua depois por Firebase ou Planilha)
-  const posts = [
-    { titulo: "Primeiro Post", conteudo: "Esse é o conteúdo do primeiro post." },
-    { titulo: "Segundo Post", conteudo: "Mais um artigo incrível no blog!" }
-  ];
-
-  postsContainer.innerHTML = posts.map(post => `
-    <article class="post">
-      <h3>${post.titulo}</h3>
-      <p>${post.conteudo}</p>
-    </article>
-  `).join("");
-}
-async function carregarPosts() {
-  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?output=csv";
-  try {
-    const response = await fetch(url);
-    const data = await response.text();
-
-    const linhas = data.trim().split("\n").map(l => l.split(","));
-    const cabecalho = linhas[0].map(h => h.toLowerCase());
-
-    const index = nome => cabecalho.indexOf(nome);
-
-    let html = "";
-    for (let i = 1; i < linhas.length; i++) {
-      const row = linhas[i];
-      const titulo = row[index("título")];
-      const conteudo = row[index("conteúdo")];
-      const dataPost = row[index("data")];
-      const autor = row[index("autor")];
-      const imagem = row[index("imagem (opcional)")];
-      const link = row[index("link (opcional)")];
-
-      html += `
-        <article class="post">
-          <h3>${titulo}</h3>
-          <p><small>${dataPost} — ${autor}</small></p>
-          <p>${conteudo}</p>
-          ${imagem ? `<img src="${imagem}" alt="Imagem do post">` : ""}
-          ${link ? `<p><a href="${link}" target="_blank">Saiba mais</a></p>` : ""}
-        </article>
-      `;
+  init() {
+    this.setupEventListeners();
+  }
+  
+  setupEventListeners() {
+    // Category filter buttons
+    const categoryButtons = document.querySelectorAll('.blog-nav-btn');
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const category = e.currentTarget.getAttribute('data-category');
+        this.filterPosts(category);
+        this.updateActiveButton(e.currentTarget);
+      });
+    });
+  }
+  
+  updateActiveButton(activeBtn) {
+    document.querySelectorAll('.blog-nav-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    activeBtn.classList.add('active');
+  }
+  
+  async loadPosts() {
+    if (this.isLoading) return;
+    
+    this.isLoading = true;
+    this.showLoading();
+    
+    try {
+      const response = await fetch(this.spreadsheetUrl);
+      if (!response.ok) {
+        throw new Error('Falha ao carregar dados');
+      }
+      
+      const data = await response.text();
+      this.posts = this.parseCSVData(data);
+      this.filteredPosts = [...this.posts];
+      this.renderPosts();
+      
+    } catch (error) {
+      console.error('Erro ao carregar posts:', error);
+      this.showError();
+    } finally {
+      this.isLoading = false;
     }
-
-    document.getElementById("posts").innerHTML = html;
-  } catch (err) {
-    console.error("Falha ao carregar posts:", err);
-    document.getElementById("posts").innerHTML = "<p>Erro ao carregar os posts.</p>";
+  }
+  
+  parseCSVData(csvData) {
+    const lines = csvData.trim().split('\n');
+    if (lines.length < 2) return [];
+    
+    const headers = lines[0].split(',').map(h => h.toLowerCase().trim());
+    const posts = [];
+    
+    for (let i = 1; i < lines.length; i++) {
+      const row = lines[i].split(',');
+      if (row.length < headers.length) continue;
+      
+      const post = {};
+      headers.forEach((header, index) => {
+        post[header] = row[index] ? row[index].trim().replace(/"/g, '') : '';
+      });
+      
+      // Validate required fields
+      if (post['título'] && post['conteúdo']) {
+        posts.push({
+          id: i,
+          title: post['título'],
+          content: post['conteúdo'],
+          excerpt: this.createExcerpt(post['conteúdo']),
+          date: post['data'] || new Date().toLocaleDateString('pt-BR'),
+          author: post['autor'] || 'SEMPRE',
+          category: this.normalizeCategory(post['categoria'] || 'gestao'),
+          image: post['imagem (opcional)'] || '',
+          link: post['link (opcional)'] || '',
+          tags: post['tags'] ? post['tags'].split(';').map(tag => tag.trim()) : []
+        });
+      }
+    }
+    
+    return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+  
+  createExcerpt(content, maxLength = 150) {
+    if (content.length <= maxLength) return content;
+    return content.substring(0, maxLength).trim() + '...';
+  }
+  
+  normalizeCategory(category) {
+    const categoryMap = {
+      'gestão': 'gestao',
+      'gestao': 'gestao',
+      'projetos': 'projetos',
+      'terceiro setor': 'terceiro-setor',
+      'terceiro-setor': 'terceiro-setor',
+      'ong': 'terceiro-setor',
+      'social': 'terceiro-setor'
+    };
+    
+    return categoryMap[category.toLowerCase()] || 'gestao';
+  }
+  
+  filterPosts(category) {
+    this.currentCategory = category;
+    
+    if (category === 'all') {
+      this.filteredPosts = [...this.posts];
+    } else {
+      this.filteredPosts = this.posts.filter(post => post.category === category);
+    }
+    
+    this.renderPosts();
+  }
+  
+  showLoading() {
+    const container = document.getElementById('blog-posts');
+    container.innerHTML = `
+      <div class="blog-loading">
+        <div class="loading-animation">
+          <div class="loading-spinner"></div>
+          <p class="loading-text">Carregando publicações...</p>
+        </div>
+      </div>
+    `;
+  }
+  
+  showError() {
+    const container = document.getElementById('blog-posts');
+    container.innerHTML = `
+      <div class="blog-error">
+        <div class="blog-error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h3 class="blog-error-title">Erro ao carregar posts</h3>
+        <p class="blog-error-text">Não foi possível carregar as publicações. Verifique sua conexão e tente novamente.</p>
+        <button class="blog-retry-btn" onclick="blogManager.loadPosts()">
+          <i class="fas fa-redo"></i>
+          Tentar novamente
+        </button>
+      </div>
+    `;
+  }
+  
+  showEmpty() {
+    const container = document.getElementById('blog-posts');
+    const categoryText = this.currentCategory === 'all' ? 'publicações' : `publicações de ${this.getCategoryName(this.currentCategory)}`;
+    
+    container.innerHTML = `
+      <div class="blog-empty">
+        <div class="blog-empty-icon">
+          <i class="fas fa-newspaper"></i>
+        </div>
+        <h3 class="blog-empty-title">Nenhuma publicação encontrada</h3>
+        <p class="blog-empty-text">Não há ${categoryText} disponíveis no momento.</p>
+      </div>
+    `;
+  }
+  
+  getCategoryName(category) {
+    const names = {
+      'gestao': 'Gestão',
+      'projetos': 'Projetos',
+      'terceiro-setor': 'Terceiro Setor'
+    };
+    return names[category] || 'Geral';
+  }
+  
+  renderPosts() {
+    const container = document.getElementById('blog-posts');
+    
+    if (this.filteredPosts.length === 0) {
+      this.showEmpty();
+      return;
+    }
+    
+    const postsHTML = this.filteredPosts.map((post, index) => `
+      <article class="blog-post" style="animation-delay: ${index * 0.1}s">
+        <div class="blog-post-image">
+          ${post.image ? 
+            `<img src="${post.image}" alt="${post.title}" loading="lazy" />` : 
+            `<div class="placeholder-icon"><i class="fas fa-newspaper"></i></div>`
+          }
+        </div>
+        <div class="blog-post-content">
+          <div class="blog-post-meta">
+            <div class="blog-post-date">
+              <i class="fas fa-calendar-alt"></i>
+              <span>${post.date}</span>
+            </div>
+            <div class="blog-post-author">
+              <i class="fas fa-user"></i>
+              <span>${post.author}</span>
+            </div>
+            <div class="blog-post-category">${this.getCategoryName(post.category)}</div>
+          </div>
+          
+          <h3 class="blog-post-title">${post.title}</h3>
+          <p class="blog-post-excerpt">${post.excerpt}</p>
+          
+          <div class="blog-post-footer">
+            ${post.link ? 
+              `<a href="${post.link}" target="_blank" rel="noopener" class="blog-post-link">
+                <span>Leia mais</span>
+                <i class="fas fa-external-link-alt"></i>
+              </a>` :
+              `<span class="blog-post-link" style="cursor: default; color: #6b7280;">
+                <span>Artigo completo</span>
+                <i class="fas fa-arrow-right"></i>
+              </span>`
+            }
+            
+            ${post.tags.length > 0 ? `
+              <div class="blog-post-tags">
+                ${post.tags.slice(0, 3).map(tag => `<span class="blog-post-tag">${tag}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </article>
+    `).join('');
+    
+    container.innerHTML = postsHTML;
+    
+    // Trigger animations
+    setTimeout(() => {
+      const posts = container.querySelectorAll('.blog-post');
+      posts.forEach(post => {
+        post.style.opacity = '1';
+        post.style.transform = 'translateY(0)';
+      });
+    }, 100);
   }
 }
 
+// Initialize blog manager
+let blogManager;
+
+// Navigation functions
 function mostrarHome() {
-  ["inicio", "sobre", "servicos", "depoimentos", "contato"].forEach(id =>
-    document.getElementById(id).style.display = "block"
-  );
-  document.getElementById("blog").style.display = "none";
+  // Show all normal sections
+  const sectionsToShow = ['inicio', 'sobre', 'servicos', 'depoimentos', 'contato'];
+  sectionsToShow.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.style.display = 'block';
+  });
+  
+  // Hide blog
+  const blogElement = document.getElementById('blog');
+  if (blogElement) blogElement.style.display = 'none';
+  
+  // Update page title
+  document.title = 'SEMPRE - Gestão de Projetos e Negócios Empresariais';
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function mostrarBlog() {
-  ["inicio", "sobre", "servicos", "depoimentos", "contato"].forEach(id =>
-    document.getElementById(id).style.display = "none"
-  );
-  document.getElementById("blog").style.display = "block";
-  carregarPosts();
+  // Hide all normal sections
+  const sectionsToHide = ['inicio', 'sobre', 'servicos', 'depoimentos', 'contato'];
+  sectionsToHide.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.style.display = 'none';
+  });
+  
+  // Show blog
+  const blogElement = document.getElementById('blog');
+  if (blogElement) {
+    blogElement.style.display = 'block';
+    
+    // Initialize blog manager if not already done
+    if (!blogManager) {
+      blogManager = new BlogManager();
+    }
+    
+    // Load posts
+    blogManager.loadPosts();
+  }
+  
+  // Update page title
+  document.title = 'Blog SEMPRE - Artigos sobre Gestão de Projetos Sociais';
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Legacy function for compatibility
+function carregarPosts() {
+  if (blogManager) {
+    blogManager.loadPosts();
+  }
 }
