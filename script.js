@@ -1153,7 +1153,7 @@ function mostrarBlog() {
   }
   
   // Update page title
-  document.title = 'Blog SEMPRE - Artigos sobre Gestão de Projetos Sociais';
+  document.title = 'Principais Notícias - Artigos sobre Gestão de Projetos Sociais';
   
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
