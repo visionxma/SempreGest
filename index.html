@@ -58,42 +58,37 @@
   </script>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen" class="loading-screen">
-    <div class="loading-content">
-      <div class="loading-animation">
-        <div class="code-terminal">
-          <div class="terminal-header">
-            <div class="terminal-dot dot-red"></div>
-            <div class="terminal-dot dot-yellow"></div>
-            <div class="terminal-dot dot-green"></div>
-            <div class="terminal-title">SEMPRE</div>
-          </div>
-          <div class="code-lines" id="code-lines">
-            <!-- Mensagens serão inseridas dinamicamente -->
-          </div>
-        </div>
-      </div>
-      
-      <div class="loading-progress">
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-        </div>
-        <div class="loading-message">Preparando experiência profissional</div>
-        <div class="loading-submessage">Carregando recursos...</div>
-      </div>
-    </div>
-    
-    <!-- Partículas de código flutuantes -->
-    <div class="code-particles" id="code-particles">
-      <!-- Partículas serão inseridas dinamicamente -->
-    </div>
+<!-- Loading Screen Simples -->
+<div id="loading-screen" class="loading-screen" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f0f2f5; font-family: Arial, sans-serif;">
+  
+<!-- Logo e nome da empresa -->
+<div style="text-align: center; margin-bottom: 20px;">
+  <img src="assets/SEMPREPRETA.png" alt="Sempre Gestão" style="width: 200px; height: auto; margin-bottom: 10px;">
+</div>
+
+  <!-- Frase de efeito -->
+  <p style="font-size: 1.2rem; color: #555;">Transformando desafios em resultados</p>
+
+  <!-- Barra de progresso simples -->
+  <div style="width: 200px; height: 10px; background: #ddd; border-radius: 5px; margin-top: 30px; overflow: hidden;">
+    <div class="progress-fill" style="width: 0%; height: 100%; background: #01253f; transition: width 1s;"></div>
   </div>
 
-  <!-- Universe Background -->
-  <div class="universe-background">
-    <canvas id="universe-canvas"></canvas>
-  </div>
+</div>
+
+<!-- Font Awesome para ícones -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+<!-- Script simples para animar a barra de progresso -->
+<script>
+  const fill = document.querySelector('.progress-fill');
+  let width = 0;
+  const interval = setInterval(() => {
+    if(width >= 100) clearInterval(interval);
+    width += 1;
+    fill.style.width = width + '%';
+  }, 30);
+</script>
 
   <!-- Header -->
   <header class="header" id="header">
@@ -104,15 +99,16 @@
             <img src="assets/SEMPREPRETA.png" alt="SEMPRE - Gestão de Projetos e Negócios Empresariais" class="logo" />
           </a>
         </div>
-        <nav class="nav" id="nav">
-          <ul class="nav-list">
-            <li><a href="#inicio" class="nav-link">Início</a></li>
-            <li><a href="#sobre" class="nav-link">Sobre</a></li>
-            <li><a href="#servicos" class="nav-link">Serviços</a></li>
-            <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
-            <li><a href="#contato" class="nav-link">Contato</a></li>
-          </ul>
-        </nav>
+<nav class="nav" id="nav">
+  <ul class="nav-list">
+    <li><a href="#" class="nav-link" onclick="mostrarHome()">Início</a></li>
+    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+    <li><a href="#servicos" class="nav-link">Serviços</a></li>
+    <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+    <li><a href="#contato" class="nav-link">Contato</a></li>
+    <li><a href="#" class="nav-link" onclick="mostrarBlog()">Blog</a></li>
+  </ul>
+</nav>
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Menu de navegação">
           <span></span>
           <span></span>
@@ -135,24 +131,14 @@
           <div class="neural-node"></div>
           <div class="neural-node"></div>
         </div>
-        <div class="floating-elements">
-          <div class="floating-element">●</div>
-          <div class="floating-element">◆</div>
-          <div class="floating-element">▲</div>
-          <div class="floating-element">■</div>
-          <div class="floating-element">♦</div>
-        </div>
-      </div>
     </div>
     
     <div class="hero-carousel">
       <!-- Slide 1 -->
       <div class="hero-slide active">
         <div class="container">
-          <div class="hero-content">
             <h1 class="hero-title">
-              <span class="title-line">Gestão profissional para</span>
-              <span class="title-line highlight">projetos de impacto</span>
+              <span class="title-line">Gestão profissional para projetos de impacto</span>
             </h1>
             <p class="hero-description">
               Assessoria, consultoria e instrutoria especializada para organizações do terceiro setor.
@@ -166,7 +152,6 @@
                 <span>Entre em contato</span>
                 <i class="fas fa-phone"></i>
               </a>
-            </div>
           </div>
         </div>
       </div>
@@ -174,10 +159,8 @@
       <!-- Slide 2 -->
       <div class="hero-slide">
         <div class="container">
-          <div class="hero-content">
             <h1 class="hero-title">
-              <span class="title-line">Metodologias modernas para</span>
-              <span class="title-line highlight">resultados eficientes</span>
+              <span class="title-line">Metodologias modernas para resultados eficientes</span>
             </h1>
             <p class="hero-description">
               Aplicamos técnicas e ferramentas atuais para otimizar recursos e maximizar resultados.
@@ -191,7 +174,6 @@
                 <span>Conheça mais</span>
                 <i class="fas fa-info-circle"></i>
               </a>
-            </div>
           </div>
         </div>
       </div>
@@ -199,10 +181,8 @@
       <!-- Slide 3 -->
       <div class="hero-slide">
         <div class="container">
-          <div class="hero-content">
             <h1 class="hero-title">
-              <span class="title-line">Referência em gestão na</span>
-              <span class="title-line highlight">Ilha de São Luís</span>
+              <span class="title-line">Referência em gestão na Ilha de São Luís</span>
             </h1>
             <p class="hero-description">
               Experiência comprovada em gestão de projetos e negócios empresariais no Maranhão.
@@ -216,7 +196,6 @@
                 <span>Fale Conosco</span>
                 <i class="fas fa-comments"></i>
               </a>
-            </div>
           </div>
         </div>
       </div>
@@ -452,6 +431,21 @@
       </div>
     </div>
   </section>
+  <!-- Blog Section -->
+
+    <section id="blog" style="display: none;">
+        <div class="blog-container">
+            <h2>Últimas Publicações</h2>
+            
+            <!-- Container de Posts com Estado de Loading -->
+            <div id="posts">
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <span class="loading-text">Carregando publicações...</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
   <!-- Contact Section -->
   <section id="contato" class="contact-section section">

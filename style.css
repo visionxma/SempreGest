@@ -13,6 +13,7 @@ html {
   font-size: 16px;
 }
 
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #1a1a1a;
@@ -20,6 +21,120 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+}
+/* ---------------- BLOG SECTION ---------------- */
+#blog {
+  padding: 60px 20px;
+  background: #f9f9f9;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+#blog h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 50px;
+  color: #222;
+  position: relative;
+}
+
+#blog h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #007BFF;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* ---------------- LOADING ---------------- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+}
+
+.loading-spinner {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #007BFF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: 0.5px;
+}
+
+/* ---------------- POSTS ---------------- */
+#posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.post {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.post:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 6px 16px rgba(0,0,0,0.12);
+}
+
+.post h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #007BFF;
+  margin-bottom: 12px;
+}
+
+.post p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* ---------------- RESPONSIVIDADE ---------------- */
+@media (max-width: 600px) {
+  #blog {
+    padding: 40px 15px;
+  }
+
+  #blog h2 {
+    font-size: 1.8rem;
+  }
+
+  .post {
+    padding: 18px;
+  }
+
+  .post h3 {
+    font-size: 1.1rem;
+  }
+
+  .post p {
+    font-size: 0.9rem;
+  }
 }
 
 .container {
@@ -60,7 +175,7 @@ body {
 
 .code-terminal {
   background: #ffffff;
-  border: 2px solid #4ade80;
+  border: 2px solid #01253f;
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
@@ -87,7 +202,7 @@ body {
 
 .dot-red { background: #ef4444; }
 .dot-yellow { background: #f59e0b; }
-.dot-green { background: #4ade80; }
+.dot-green { background: #01253f; }
 
 .terminal-title {
   color: #1a1a1a;
@@ -112,7 +227,7 @@ body {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeInUp 0.6s ease-out forwards;
-  color: #4ade80;
+  color: #01253f;
   font-weight: 600;
   font-size: 1.1rem;
 }
@@ -139,7 +254,7 @@ body {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4ade80, #22c55e);
+  background: linear-gradient(90deg, #01253f, #02355a);
   border-radius: 3px;
   width: 0%;
   animation: loadProgress 2s ease-in-out infinite;
@@ -272,7 +387,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: #4ade80;
+  background: #01253f;
   transition: width 0.3s ease;
 }
 
@@ -282,7 +397,7 @@ body {
 }
 
 .nav-link:hover {
-  color: #4ade80;
+  color: #01253f;
 }
 
 .mobile-menu-btn {
@@ -370,11 +485,21 @@ body {
 }
 
 .hero-slide .hero-title {
-  color: #1a1a1a;
+  color: #ffffff;
+  text-align: center;
 }
 
 .hero-slide .hero-description {
-  color: #4b5563;
+  color: #ffffff;
+  text-align: center;
+}
+.hero-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza verticalmente */
+  align-items: center;     /* centraliza horizontalmente */
+  height: 100%;            /* garanta que o container ocupe toda a altura */
+  text-align: center;
 }
 
 .carousel-nav {
@@ -406,8 +531,8 @@ body {
 }
 
 .carousel-btn:hover {
-  background: #4ade80;
-  border-color: #4ade80;
+  background: #01253f;
+  border-color: #fff;
   color: #ffffff;
   transform: scale(1.1);
 }
@@ -433,8 +558,8 @@ body {
 }
 
 .indicator.active {
-  background: #4ade80;
-  border-color: #4ade80;
+  background: #01253f;
+  border-color: #fff;
   transform: scale(1.2);
 }
 
@@ -478,7 +603,7 @@ body {
   position: absolute;
   width: 8px;
   height: 8px;
-  background: #4ade80;
+  background: #01253f;
   border-radius: 50%;
   opacity: 0.3;
   animation: gentlePulse 4s ease-in-out infinite;
@@ -509,7 +634,7 @@ body {
   opacity: 0.1;
   animation: gentleFloat 12s ease-in-out infinite;
   font-size: 24px;
-  color: #4ade80;
+  color: #01253f;
 }
 
 .floating-element:nth-child(1) { top: 25%; left: 20%; animation-delay: 0s; }
@@ -551,7 +676,7 @@ body {
 }
 
 .highlight {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #ffffff, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -605,16 +730,16 @@ body {
 }
 
 .cta-button.primary {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #01253f, #02355a);
   color: #ffffff;
-  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
 }
 
 .cta-button.secondary {
   background: #ffffff;
   color: #1a1a1a;
   border: 2px solid #e5e7eb;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(20, 63, 173, 0.1);
 }
 
 .cta-button:hover {
@@ -622,13 +747,13 @@ body {
 }
 
 .cta-button.primary:hover {
-  box-shadow: 0 20px 40px rgba(74, 222, 128, 0.4);
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.857);
 }
 
 .cta-button.secondary:hover {
   background: #f9fafb;
-  border-color: #4ade80;
-  color: #4ade80;
+  border-color: #ffffff;
+  color: #ffffff;
 }
 
 .scroll-indicator {
@@ -685,7 +810,7 @@ body {
 .section-line {
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #4ade80, #22c55e);
+  background: linear-gradient(90deg, #01253f, #02355a);
   margin: 0 auto 1rem;
   border-radius: 2px;
 }
@@ -750,7 +875,7 @@ body {
 
 .value-item:hover {
   background: #f9fafb;
-  border-color: #4ade80;
+  border-color: #01253f;
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(74, 222, 128, 0.1);
 }
@@ -758,7 +883,7 @@ body {
 .value-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #01253f, #02355a);
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -814,7 +939,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4ade80, #22c55e);
+  background: linear-gradient(90deg, #01253f, #02355a);
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -826,14 +951,14 @@ body {
 .service-card:hover {
   transform: translateY(-10px);
   background: #f9fafb;
-  border-color: #4ade80;
+  border-color: #01253f;
   box-shadow: 0 20px 40px rgba(74, 222, 128, 0.1);
 }
 
 .service-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #01253f, #02355a);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -869,18 +994,18 @@ body {
   align-items: center;
   gap: 0.5rem;
   background: transparent;
-  color: #4ade80;
+  color: #01253f;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.75rem 1.5rem;
-  border: 2px solid #4ade80;
+  border: 2px solid #fff;
   border-radius: 25px;
   transition: all 0.3s ease;
 }
 
 .service-cta:hover {
-  background: #4ade80;
+  background: #01253f;
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -908,7 +1033,7 @@ body {
 .testimonial-card:hover {
   transform: translateY(-5px);
   background: #f9fafb;
-  border-color: #4ade80;
+  border-color: #01253f;
   box-shadow: 0 15px 30px rgba(74, 222, 128, 0.1);
 }
 
@@ -919,7 +1044,7 @@ body {
 }
 
 .stars i {
-  color: #4ade80;
+  color: #ffd500;
   font-size: 1rem;
 }
 
@@ -940,7 +1065,7 @@ body {
 .author-avatar {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #01253f, #02355a);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1002,7 +1127,7 @@ body {
 
 .contact-method:hover {
   background: #ffffff;
-  border-color: #4ade80;
+  border-color: #01253f;
   transform: translateY(-2px);
   box-shadow: 0 10px 30px rgba(74, 222, 128, 0.1);
 }
@@ -1010,7 +1135,7 @@ body {
 .method-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #01253f, #02355a);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -1036,7 +1161,7 @@ body {
 }
 
 .method-info a {
-  color: #4ade80;
+  color: #01253f;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
@@ -1044,7 +1169,7 @@ body {
 }
 
 .method-info a:hover {
-  color: #22c55e;
+  color: #01253f;
 }
 
 .social-links h4 {
@@ -1074,7 +1199,7 @@ body {
 }
 
 .social-icons a:hover {
-  background: #4ade80;
+  background: #01253f;
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -1123,7 +1248,7 @@ body {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #4ade80;
+  border-color: #01253f;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.1);
 }
@@ -1134,7 +1259,7 @@ body {
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #4ade80, #22c55e);
+  background: linear-gradient(135deg, #01253f, #02355a);
   color: #ffffff;
   border: none;
   padding: 1rem 2rem;
@@ -1176,7 +1301,7 @@ body {
 }
 
 .footer-logo img {
-  height: 45px;
+  height: 70px;
   margin-bottom: 1rem;
 }
 
@@ -1206,7 +1331,7 @@ body {
 }
 
 .footer-social a:hover {
-  background: #4ade80;
+  background: #01253f;
   color: #ffffff;
   transform: translateY(-2px);
 }
@@ -1234,7 +1359,7 @@ body {
 }
 
 .footer-links a:hover {
-  color: #4ade80;
+  color: #01253f;
 }
 
 .footer-contact {
@@ -1251,7 +1376,7 @@ body {
 }
 
 .contact-item i {
-  color: #4ade80;
+  color: #01253f;
   width: 16px;
 }
 
@@ -1660,7 +1785,7 @@ body {
 .submit-btn:focus,
 .social-icons a:focus,
 .footer-links a:focus {
-  outline: 2px solid #4ade80;
+  outline: 2px solid #01253f;
   outline-offset: 2px;
 }
 

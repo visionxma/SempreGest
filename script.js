@@ -205,6 +205,8 @@ class SempreWebsite {
     }
   }
 
+
+  
   // Hero Carousel
   initHeroCarousel() {
     this.heroCarousel = new HeroCarousel();
@@ -858,3 +860,100 @@ const sempreWebsite = new SempreWebsite();
 window.addEventListener('resize', debounce(() => {
   sempreWebsite.handleResize();
 }, 250));
+function mostrarHome() {
+  // Mostra todas as seções normais
+  document.getElementById("inicio").style.display = "block";
+  document.getElementById("sobre").style.display = "block";
+  document.getElementById("servicos").style.display = "block";
+  document.getElementById("depoimentos").style.display = "block";
+  document.getElementById("contato").style.display = "block";
+  
+  // Esconde o blog
+  document.getElementById("blog").style.display = "none";
+}
+
+function mostrarBlog() {
+  // Esconde todas as seções normais
+  document.getElementById("inicio").style.display = "none";
+  document.getElementById("sobre").style.display = "none";
+  document.getElementById("servicos").style.display = "none";
+  document.getElementById("depoimentos").style.display = "none";
+  document.getElementById("contato").style.display = "none";
+
+  // Mostra o blog
+  document.getElementById("blog").style.display = "block";
+
+  // Se quiser, pode carregar os posts automaticamente daqui
+  carregarPosts();
+}
+
+// Exemplo de função que pode puxar posts de uma API ou planilha
+function carregarPosts() {
+  const postsContainer = document.getElementById("posts");
+
+  // Exemplo fake (substitua depois por Firebase ou Planilha)
+  const posts = [
+    { titulo: "Primeiro Post", conteudo: "Esse é o conteúdo do primeiro post." },
+    { titulo: "Segundo Post", conteudo: "Mais um artigo incrível no blog!" }
+  ];
+
+  postsContainer.innerHTML = posts.map(post => `
+    <article class="post">
+      <h3>${post.titulo}</h3>
+      <p>${post.conteudo}</p>
+    </article>
+  `).join("");
+}
+async function carregarPosts() {
+  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?output=csv";
+  try {
+    const response = await fetch(url);
+    const data = await response.text();
+
+    const linhas = data.trim().split("\n").map(l => l.split(","));
+    const cabecalho = linhas[0].map(h => h.toLowerCase());
+
+    const index = nome => cabecalho.indexOf(nome);
+
+    let html = "";
+    for (let i = 1; i < linhas.length; i++) {
+      const row = linhas[i];
+      const titulo = row[index("título")];
+      const conteudo = row[index("conteúdo")];
+      const dataPost = row[index("data")];
+      const autor = row[index("autor")];
+      const imagem = row[index("imagem (opcional)")];
+      const link = row[index("link (opcional)")];
+
+      html += `
+        <article class="post">
+          <h3>${titulo}</h3>
+          <p><small>${dataPost} — ${autor}</small></p>
+          <p>${conteudo}</p>
+          ${imagem ? `<img src="${imagem}" alt="Imagem do post">` : ""}
+          ${link ? `<p><a href="${link}" target="_blank">Saiba mais</a></p>` : ""}
+        </article>
+      `;
+    }
+
+    document.getElementById("posts").innerHTML = html;
+  } catch (err) {
+    console.error("Falha ao carregar posts:", err);
+    document.getElementById("posts").innerHTML = "<p>Erro ao carregar os posts.</p>";
+  }
+}
+
+function mostrarHome() {
+  ["inicio", "sobre", "servicos", "depoimentos", "contato"].forEach(id =>
+    document.getElementById(id).style.display = "block"
+  );
+  document.getElementById("blog").style.display = "none";
+}
+
+function mostrarBlog() {
+  ["inicio", "sobre", "servicos", "depoimentos", "contato"].forEach(id =>
+    document.getElementById(id).style.display = "none"
+  );
+  document.getElementById("blog").style.display = "block";
+  carregarPosts();
+}
