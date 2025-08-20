@@ -1330,28 +1330,34 @@ class BlogManager {
   formatArticleContent(content) {
     if (!content) return '';
     
-    // Split content by double line breaks for paragraphs, single line breaks for line breaks
+    // Split content by double line breaks for paragraphs only
     let formattedContent = content
       // Replace multiple spaces with single space
       .replace(/\s+/g, ' ')
-      // Replace specific paragraph markers if they exist
+      // Only split on actual double line breaks, not periods
       .replace(/\n\n+/g, '||PARAGRAPH||')
       .replace(/\n/g, ' ')
       .split('||PARAGRAPH||')
       .filter(p => p.trim());
     
-    // If no paragraph breaks found, try splitting by sentences for better formatting
-    if (formattedContent.length === 1 && formattedContent[0].length > 300) {
-      const sentences = formattedContent[0].split(/(?<=[.!?])\s+/);
+    // If no paragraph breaks found and content is very long, split intelligently
+    if (formattedContent.length === 1 && formattedContent[0].length > 800) {
+      // Split by sentences but only create new paragraphs after multiple sentences
+      const sentences = formattedContent[0].split(/(?<=[.!?])\s+(?=[A-Z])/);
       const paragraphs = [];
       let currentParagraph = '';
+      let sentenceCount = 0;
       
       sentences.forEach(sentence => {
-        if (currentParagraph.length + sentence.length > 400) {
+        sentenceCount++;
+        
+        // Only create new paragraph after 3-4 sentences or if getting too long
+        if ((sentenceCount >= 3 && currentParagraph.length > 200) || currentParagraph.length + sentence.length > 600) {
           if (currentParagraph) {
             paragraphs.push(currentParagraph.trim());
           }
           currentParagraph = sentence;
+          sentenceCount = 1;
         } else {
           currentParagraph += (currentParagraph ? ' ' : '') + sentence;
         }
@@ -1361,7 +1367,10 @@ class BlogManager {
         paragraphs.push(currentParagraph.trim());
       }
       
-      formattedContent = paragraphs;
+      // Only use this split if it creates reasonable paragraphs
+      if (paragraphs.length > 1 && paragraphs.every(p => p.length > 50)) {
+        formattedContent = paragraphs;
+      }
     }
     
     return formattedContent.map(paragraph => {
