@@ -1261,31 +1261,6 @@ body {
   z-index: 2;
 }
 
-/* Clean geometric elements instead of neural network */
-.neural-network {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.neural-node {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: #01253f;
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: gentlePulse 4s ease-in-out infinite;
-}
-
-.neural-node:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; }
-.neural-node:nth-child(2) { top: 30%; right: 20%; animation-delay: 1s; }
-.neural-node:nth-child(3) { bottom: 40%; left: 25%; animation-delay: 2s; }
-.neural-node:nth-child(4) { bottom: 25%; right: 15%; animation-delay: 3s; }
-.neural-node:nth-child(5) { top: 50%; left: 50%; animation-delay: 4s; }
-.neural-node:nth-child(6) { top: 60%; right: 40%; animation-delay: 5s; }
 
 @keyframes gentlePulse {
   0%, 100% { transform: scale(1); opacity: 0.2; }
