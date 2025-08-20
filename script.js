@@ -925,16 +925,30 @@ class BlogManager {
     const lines = csvData.trim().split('\n');
     if (lines.length < 2) return [];
     
-    const headers = lines[0].split(',').map(h => h.toLowerCase().trim());
+    // Parse CSV headers properly
+    const headers = this.parseCSVLine(lines[0]).map(h => h.toLowerCase().trim().replace(/"/g, ''));
     const posts = [];
     
     for (let i = 1; i < lines.length; i++) {
-      const row = lines[i].split(',');
+      // Handle multi-line records
+      let currentLine = lines[i];
+      let lineIndex = i;
+      
+      // Check if we have unclosed quotes (multi-line field)
+      while (this.hasUnclosedQuotes(currentLine) && lineIndex + 1 < lines.length) {
+        lineIndex++;
+        currentLine += '\n' + lines[lineIndex];
+      }
+      
+      // Update the loop index to skip processed lines
+      i = lineIndex;
+      
+      const row = this.parseCSVLine(currentLine);
       if (row.length < headers.length) continue;
       
       const post = {};
       headers.forEach((header, index) => {
-        post[header] = row[index] ? row[index].trim().replace(/"/g, '') : '';
+        post[header] = row[index] ? this.cleanCSVField(row[index]) : '';
       });
       
       // Validate required fields
@@ -955,6 +969,87 @@ class BlogManager {
     }
     
     return posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+  
+  parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    let i = 0;
+    
+    while (i < line.length) {
+      const char = line[i];
+      const nextChar = line[i + 1];
+      
+      if (char === '"') {
+        if (inQuotes && nextChar === '"') {
+          // Escaped quote
+          current += '"';
+          i += 2;
+          continue;
+        } else {
+          // Toggle quote state
+          inQuotes = !inQuotes;
+        }
+      } else if (char === ',' && !inQuotes) {
+        // Field separator
+        result.push(current);
+        current = '';
+        i++;
+        continue;
+      } else {
+        current += char;
+      }
+      
+      i++;
+    }
+    
+    // Add the last field
+    result.push(current);
+    
+    return result;
+  }
+  
+  hasUnclosedQuotes(line) {
+    let quoteCount = 0;
+    let inQuotes = false;
+    
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      const nextChar = line[i + 1];
+      
+      if (char === '"') {
+        if (inQuotes && nextChar === '"') {
+          // Escaped quote, skip next
+          i++;
+          continue;
+        } else {
+          quoteCount++;
+          inQuotes = !inQuotes;
+        }
+      }
+    }
+    
+    // If quote count is odd, we have unclosed quotes
+    return quoteCount % 2 !== 0;
+  }
+  
+  cleanCSVField(field) {
+    if (!field) return '';
+    
+    // Remove surrounding quotes
+    let cleaned = field.trim();
+    if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
+      cleaned = cleaned.slice(1, -1);
+    }
+    
+    // Replace escaped quotes
+    cleaned = cleaned.replace(/""/g, '"');
+    
+    // Clean up extra whitespace but preserve intentional line breaks
+    cleaned = cleaned.replace(/\s+/g, ' ').trim();
+    
+    return cleaned;
   }
   
   createExcerpt(content, maxLength = 150) {
@@ -1235,11 +1330,43 @@ class BlogManager {
   formatArticleContent(content) {
     if (!content) return '';
     
-    // Split content by paragraphs and format
-    const paragraphs = content.split('\n').filter(p => p.trim());
+    // Split content by double line breaks for paragraphs, single line breaks for line breaks
+    let formattedContent = content
+      // Replace multiple spaces with single space
+      .replace(/\s+/g, ' ')
+      // Replace specific paragraph markers if they exist
+      .replace(/\n\n+/g, '||PARAGRAPH||')
+      .replace(/\n/g, ' ')
+      .split('||PARAGRAPH||')
+      .filter(p => p.trim());
     
-    return paragraphs.map(paragraph => {
+    // If no paragraph breaks found, try splitting by sentences for better formatting
+    if (formattedContent.length === 1 && formattedContent[0].length > 300) {
+      const sentences = formattedContent[0].split(/(?<=[.!?])\s+/);
+      const paragraphs = [];
+      let currentParagraph = '';
+      
+      sentences.forEach(sentence => {
+        if (currentParagraph.length + sentence.length > 400) {
+          if (currentParagraph) {
+            paragraphs.push(currentParagraph.trim());
+          }
+          currentParagraph = sentence;
+        } else {
+          currentParagraph += (currentParagraph ? ' ' : '') + sentence;
+        }
+      });
+      
+      if (currentParagraph) {
+        paragraphs.push(currentParagraph.trim());
+      }
+      
+      formattedContent = paragraphs;
+    }
+    
+    return formattedContent.map(paragraph => {
       const trimmed = paragraph.trim();
+      if (!trimmed) return '';
       
       // Check if it's an image URL
       if (this.isImageUrl(trimmed)) {
@@ -1255,7 +1382,7 @@ class BlogManager {
       
       // Regular paragraph
       return `<p class="article-paragraph">${trimmed}</p>`;
-    }).join('');
+    }).filter(p => p).join('');
   }
   
   isImageUrl(url) {
