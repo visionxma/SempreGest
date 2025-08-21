@@ -868,8 +868,7 @@ class BlogManager {
     this.currentCategory = 'all';
     this.isLoading = false;
     this.currentArticle = null;
-    // URL da planilha - você precisa substituir pela sua URL real
-    this.spreadsheetUrl = "SUA_URL_DA_PLANILHA_AQUI";
+    this.spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?output=csv";
     
     this.init();
   }
@@ -926,8 +925,7 @@ class BlogManager {
     const lines = csvData.trim().split('\n');
     if (lines.length < 2) return [];
     
-    // Headers esperados da planilha
-    const expectedHeaders = ['id', 'titulo', 'categoria', 'conteudo', 'autor', 'data', 'imagem', 'link_externo'];
+    // Parse CSV headers properly
     const headers = this.parseCSVLine(lines[0]).map(h => h.toLowerCase().trim().replace(/"/g, ''));
     const posts = [];
     
@@ -950,22 +948,22 @@ class BlogManager {
       
       const post = {};
       headers.forEach((header, index) => {
-        const cleanHeader = this.normalizeHeader(header);
-        post[cleanHeader] = row[index] ? this.cleanCSVField(row[index]) : '';
+        post[header] = row[index] ? this.cleanCSVField(row[index]) : '';
       });
       
       // Validate required fields
-      if (post['titulo'] && post['conteudo']) {
+      if (post['título'] && post['conteúdo']) {
         posts.push({
           id: post['id'] || i,
-          title: post['titulo'],
-          content: post['conteudo'],
-          excerpt: this.createExcerpt(post['conteudo']),
+          title: post['título'],
+          content: post['conteúdo'],
+          redacao: post['redação'] || '',
+          excerpt: this.createExcerpt(post['conteúdo']),
           date: post['data'] || new Date().toLocaleDateString('pt-BR'),
           author: post['autor'] || 'SEMPRE',
-          category: this.normalizeCategory(post['categoria'] || 'gestao'),
-          image: post['imagem'] || '',
-          linkExterno: post['link_externo'] || ''
+          category: this.normalizeCategory(post['conteúdo']),
+          image: post['imagem (opcional)'] || '',
+          linkRedacao: post['link (redação)'] || ''
         });
       }
     }
@@ -1059,22 +1057,7 @@ class BlogManager {
     return content.substring(0, maxLength).trim() + '...';
   }
   
-  normalizeHeader(header) {
-    const headerMap = {
-      'título': 'titulo',
-      'conteúdo': 'conteudo',
-      'redação': 'redacao',
-      'imagem (opcional)': 'imagem',
-      'link (redação)': 'link_externo',
-      'link externo': 'link_externo'
-    };
-    
-    return headerMap[header] || header.replace(/\s+/g, '_').replace(/[()]/g, '');
-  }
-  
   normalizeCategory(category) {
-    if (!category) return 'gestao';
-    
     const categoryMap = {
       'gestão': 'gestao',
       'gestao': 'gestao',
@@ -1082,13 +1065,16 @@ class BlogManager {
       'terceiro setor': 'terceiro-setor',
       'terceiro-setor': 'terceiro-setor',
       'ong': 'terceiro-setor',
-      'social': 'terceiro-setor',
-      'noticias': 'gestao',
-      'novidades': 'gestao'
+      'social': 'terceiro-setor'
     };
     
     const lowerCategory = category.toLowerCase();
-    return categoryMap[lowerCategory] || 'gestao';
+    for (const [key, value] of Object.entries(categoryMap)) {
+      if (lowerCategory.includes(key)) {
+        return value;
+      }
+    }
+    return 'gestao';
   }
   
   filterPosts(category) {
@@ -1189,13 +1175,13 @@ class BlogManager {
           <p class="blog-post-excerpt">${post.excerpt}</p>
           
           <div class="blog-post-footer">
-            ${post.content && post.content.length > 300 ? 
+            ${post.redacao ? 
               `<button class="blog-post-link" onclick="blogManager.showArticle('${post.id}')">
                 <span>Artigo completo</span>
                 <i class="fas fa-arrow-right"></i>
               </button>` :
-              post.linkExterno ? 
-                `<a href="${post.linkExterno}" target="_blank" rel="noopener" class="blog-post-link">
+              post.linkRedacao ? 
+                `<a href="${post.linkRedacao}" target="_blank" rel="noopener" class="blog-post-link">
                   <span>Leia mais</span>
                   <i class="fas fa-external-link-alt"></i>
                 </a>` :
@@ -1223,7 +1209,7 @@ class BlogManager {
   
   showArticle(postId) {
     const post = this.posts.find(p => p.id == postId);
-    if (!post || !post.content) return;
+    if (!post || !post.redacao) return;
     
     this.currentArticle = post;
     
@@ -1283,12 +1269,12 @@ class BlogManager {
           <!-- Article Content -->
           <div class="article-content">
             <div class="article-body">
-              ${this.formatArticleContent(post.content)}
+              ${this.formatArticleContent(post.redacao)}
             </div>
             
-            ${post.linkExterno ? `
+            ${post.linkRedacao ? `
               <div class="article-external-link">
-                <a href="${post.linkExterno}" target="_blank" rel="noopener" class="external-link-btn">
+                <a href="${post.linkRedacao}" target="_blank" rel="noopener" class="external-link-btn">
                   <i class="fas fa-external-link-alt"></i>
                   <span>Ver artigo original</span>
                 </a>
