@@ -1213,6 +1213,9 @@ class BlogManager {
     
     this.currentArticle = post;
     
+    // Update URL with article hash
+    window.history.pushState({ articleId: postId }, post.title, `#article-${postId}`);
+    
     // Hide blog list and show article
     const blogPosts = document.getElementById('blog-posts');
     const blogNav = document.querySelector('.blog-nav');
@@ -1425,6 +1428,9 @@ class BlogManager {
     // Reset page title
     document.title = 'Principais Notícias - Artigos sobre Gestão de Projetos Sociais';
     
+    // Update URL back to blog
+    window.history.pushState({}, 'Blog', '#blog');
+    
     this.currentArticle = null;
   }
   
@@ -1454,7 +1460,11 @@ class BlogManager {
         
       case 'copy':
         navigator.clipboard.writeText(url).then(() => {
-          this.showNotification('Link copiado para a área de transferência!', 'success');
+          // Create direct link to article
+          const directUrl = `${window.location.origin}${window.location.pathname}#article-${post.id}`;
+          navigator.clipboard.writeText(directUrl).then(() => {
+            this.showNotification('Link copiado para a área de transferência!', 'success');
+          });
         }).catch(() => {
           this.showNotification('Erro ao copiar link', 'error');
         });
@@ -1523,6 +1533,30 @@ class BlogManager {
 
 // Initialize blog manager
 let blogManager;
+
+// Handle direct article links on page load
+window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  if (hash.startsWith('#article-')) {
+    const articleId = hash.replace('#article-', '');
+    // Show blog first, then the specific article
+    mostrarBlog();
+    // Wait for blog to load, then show article
+    setTimeout(() => {
+      if (blogManager && blogManager.posts.length > 0) {
+        blogManager.showArticle(articleId);
+      } else {
+        // If posts aren't loaded yet, wait for them
+        const checkPosts = setInterval(() => {
+          if (blogManager && blogManager.posts.length > 0) {
+            clearInterval(checkPosts);
+            blogManager.showArticle(articleId);
+          }
+        }, 500);
+      }
+    }, 1000);
+  }
+});
 
 // Navigation functions
 function mostrarHome() {
