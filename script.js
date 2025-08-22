@@ -525,88 +525,24 @@ class SempreWebsite {
 
   // Animations
   initAnimations() {
-    // Enhanced AOS-like functionality with multiple animation types
+    // Simple AOS-like functionality
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('aos-animate');
-          entry.target.classList.add('animate');
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
-    // Observe all elements with animation classes
-    const animatedElements = document.querySelectorAll('[data-aos], .fade-in-up, .fade-in-left, .fade-in-right, .scale-in, .slide-in-bottom');
+    // Observe all elements with data-aos attribute
+    const animatedElements = document.querySelectorAll('[data-aos]');
     animatedElements.forEach(el => observer.observe(el));
-    
-    // Add staggered animations to service cards
-    this.addStaggeredAnimations();
-    
-    // Add floating animations to icons
-    this.addFloatingAnimations();
-  }
-  
-  addStaggeredAnimations() {
-    // Service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach((card, index) => {
-      card.classList.add('fade-in-up', `stagger-${index + 1}`);
-    });
-    
-    // Moment cards
-    const momentCards = document.querySelectorAll('.moment-card');
-    momentCards.forEach((card, index) => {
-      card.classList.add('scale-in', `stagger-${index + 1}`);
-    });
-    
-    // Testimonial cards
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    testimonialCards.forEach((card, index) => {
-      card.classList.add('fade-in-up', `stagger-${index + 1}`);
-    });
-    
-    // Value items
-    const valueItems = document.querySelectorAll('.value-item');
-    valueItems.forEach((item, index) => {
-      if (index % 2 === 0) {
-        item.classList.add('fade-in-left', `stagger-${index + 1}`);
-      } else {
-        item.classList.add('fade-in-right', `stagger-${index + 1}`);
-      }
-    });
-  }
-  
-  addFloatingAnimations() {
-    // Add floating animation to service icons
-    const serviceIcons = document.querySelectorAll('.service-icon');
-    serviceIcons.forEach((icon, index) => {
-      setTimeout(() => {
-        icon.classList.add('floating');
-      }, index * 200);
-    });
-    
-    // Add pulse animation to CTA buttons
-    const ctaButtons = document.querySelectorAll('.cta-button.primary');
-    ctaButtons.forEach(button => {
-      button.addEventListener('mouseenter', () => {
-        button.classList.add('pulse');
-      });
-      button.addEventListener('mouseleave', () => {
-        button.classList.remove('pulse');
-      });
-    });
-    
-    // Add bounce animation to scroll indicator
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-      scrollIndicator.classList.add('bounce');
-    }
   }
 
   // Background Effects - Simplified

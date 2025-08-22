@@ -1378,26 +1378,10 @@ body {
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   z-index: 7;
-}
-
-.cta-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s ease;
-  z-index: -1;
-}
-
-.cta-button:hover::before {
-  left: 100%;
 }
 
 .cta-button.primary {
@@ -1414,19 +1398,17 @@ body {
 }
 
 .cta-button:hover {
-  transform: translateY(-5px) scale(1.08);
-  box-shadow: 0 15px 35px rgba(1, 37, 63, 0.25);
+  transform: translateY(-3px) scale(1.05);
 }
 
 .cta-button.primary:hover {
-  box-shadow: 0 20px 40px rgba(1, 37, 63, 0.4);
+  box-shadow: 0 20px 40px rgba(255, 255, 255, 0.857);
 }
 
 .cta-button.secondary:hover {
   background: #f9fafb;
   border-color: #ffffff;
   color: #ffffff;
-  box-shadow: 0 15px 35px rgba(1, 37, 63, 0.2);
 }
 
 .scroll-indicator {
@@ -1603,11 +1585,10 @@ body {
   border-radius: 20px;
   padding: 2.5rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transform: translateY(0);
 }
 
 .service-card::before {
@@ -1619,8 +1600,7 @@ body {
   height: 4px;
   background: linear-gradient(90deg, #01253f, #02355a);
   transform: scaleX(0);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: left;
+  transition: transform 0.3s ease;
 }
 
 .service-card:hover::before {
@@ -1628,10 +1608,10 @@ body {
 }
 
 .service-card:hover {
-  transform: translateY(-15px) scale(1.02);
+  transform: translateY(-10px);
   background: #f9fafb;
   border-color: #01253f;
-  box-shadow: 0 25px 50px rgba(1, 37, 63, 0.15);
+  box-shadow: 0 20px 40px rgba(74, 222, 128, 0.1);
 }
 
 .service-icon {
@@ -1643,22 +1623,16 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.5rem;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s ease;
 }
 
 .service-icon i {
   font-size: 2rem;
   color: #ffffff;
-  transition: transform 0.3s ease;
 }
 
 .service-card:hover .service-icon {
-  transform: scale(1.15) rotate(10deg);
-  box-shadow: 0 10px 20px rgba(1, 37, 63, 0.3);
-}
-
-.service-card:hover .service-icon i {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(5deg);
 }
 
 .service-card h3 {
@@ -1711,10 +1685,9 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 20px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   position: relative;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transform: translateY(0);
 }
 
 .moment-card::before {
@@ -1726,9 +1699,8 @@ body {
   height: 4px;
   background: linear-gradient(90deg, #01253f, #02355a);
   transform: scaleX(0);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s ease;
   z-index: 2;
-  transform-origin: left;
 }
 
 .moment-card:hover::before {
@@ -1736,9 +1708,9 @@ body {
 }
 
 .moment-card:hover {
-  transform: translateY(-15px) scale(1.02);
+  transform: translateY(-10px);
   border-color: #01253f;
-  box-shadow: 0 25px 50px rgba(1, 37, 63, 0.15);
+  box-shadow: 0 20px 40px rgba(1, 37, 63, 0.1);
 }
 
 .moment-image {
@@ -1752,11 +1724,11 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.3s ease;
 }
 
 .moment-card:hover .moment-image img {
-  transform: scale(1.08) rotate(1deg);
+  transform: scale(1.05);
 }
 
 .moment-overlay {
@@ -1770,8 +1742,7 @@ body {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  backdrop-filter: blur(5px);
+  transition: opacity 0.3s ease;
 }
 
 .moment-card:hover .moment-overlay {
@@ -1784,11 +1755,11 @@ body {
   font-weight: 800;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   transform: translateY(20px);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s ease;
 }
 
 .moment-card:hover .moment-year {
-  transform: translateY(0) scale(1.1);
+  transform: translateY(0);
 }
 
 .moment-content {
@@ -1829,35 +1800,15 @@ body {
   border: 1px solid #e5e7eb;
   border-radius: 20px;
   padding: 2rem;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  transform: translateY(0);
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonial-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #01253f, #02355a);
-  transform: scaleX(0);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: left;
 }
 
 .testimonial-card:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-5px);
   background: #f9fafb;
   border-color: #01253f;
-  box-shadow: 0 20px 40px rgba(1, 37, 63, 0.12);
-}
-
-.testimonial-card:hover::before {
-  transform: scaleX(1);
+  box-shadow: 0 15px 30px rgba(74, 222, 128, 0.1);
 }
 
 .stars {
@@ -1945,32 +1896,14 @@ body {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 15px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform: translateX(0);
-  position: relative;
-  overflow: hidden;
-}
-
-.contact-method::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(1, 37, 63, 0.05), transparent);
-  transition: left 0.6s ease;
+  transition: all 0.3s ease;
 }
 
 .contact-method:hover {
   background: #ffffff;
   border-color: #01253f;
-  transform: translateY(-5px) translateX(5px);
-  box-shadow: 0 15px 35px rgba(1, 37, 63, 0.12);
-}
-
-.contact-method:hover::before {
-  left: 100%;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.1);
 }
 
 .method-icon {
@@ -2036,35 +1969,13 @@ body {
   justify-content: center;
   color: #6b7280;
   font-size: 1.2rem;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.social-icons a::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: #01253f;
-  border-radius: 50%;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform: translate(-50%, -50%);
-  z-index: -1;
+  transition: all 0.3s ease;
 }
 
 .social-icons a:hover {
   background: #01253f;
   color: #ffffff;
-  transform: translateY(-5px) scale(1.1) rotate(5deg);
-  box-shadow: 0 10px 20px rgba(1, 37, 63, 0.3);
-}
-
-.social-icons a:hover::before {
-  width: 100%;
-  height: 100%;
+  transform: translateY(-2px);
 }
 
 /* Contact Form */
@@ -2279,133 +2190,12 @@ body {
 [data-aos] {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.8s ease;
 }
 
 [data-aos].aos-animate {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Enhanced Animation Classes */
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.fade-in-up.animate {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.fade-in-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.fade-in-left.animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.fade-in-right {
-  opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.fade-in-right.animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.scale-in {
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.scale-in.animate {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.slide-in-bottom {
-  opacity: 0;
-  transform: translateY(100px);
-  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.slide-in-bottom.animate {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Staggered Animation Delays */
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-.stagger-5 { transition-delay: 0.5s; }
-.stagger-6 { transition-delay: 0.6s; }
-.stagger-7 { transition-delay: 0.7s; }
-.stagger-8 { transition-delay: 0.8s; }
-
-/* Floating Animation for Elements */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.floating {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Pulse Animation */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.pulse {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Bounce Animation */
-@keyframes bounce {
-  0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
-  40%, 43% { transform: translateY(-15px); }
-  70% { transform: translateY(-7px); }
-  90% { transform: translateY(-3px); }
-}
-
-.bounce {
-  animation: bounce 2s ease-in-out infinite;
-}
-
-/* Rotate Animation */
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.rotate {
-  animation: rotate 20s linear infinite;
-}
-
-/* Gradient Animation */
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.gradient-animate {
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
 }
 
 /* Responsive Design */
