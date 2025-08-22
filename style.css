@@ -1669,6 +1669,121 @@ body {
   transform: translateY(-2px);
 }
 
+/* Moments Section */
+.moments-section {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.moments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.moment-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.moment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #01253f, #02355a);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.moment-card:hover::before {
+  transform: scaleX(1);
+}
+
+.moment-card:hover {
+  transform: translateY(-10px);
+  border-color: #01253f;
+  box-shadow: 0 20px 40px rgba(1, 37, 63, 0.1);
+}
+
+.moment-image {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.moment-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.moment-card:hover .moment-image img {
+  transform: scale(1.05);
+}
+
+.moment-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(1, 37, 63, 0.8), rgba(2, 53, 90, 0.6));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.moment-card:hover .moment-overlay {
+  opacity: 1;
+}
+
+.moment-year {
+  color: #ffffff;
+  font-size: 3rem;
+  font-weight: 800;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.moment-card:hover .moment-year {
+  transform: translateY(0);
+}
+
+.moment-content {
+  padding: 2rem;
+}
+
+.moment-content h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.moment-card:hover .moment-content h3 {
+  color: #01253f;
+}
+
+.moment-content p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
 /* Testimonials Section */
 .testimonials-section {
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -2221,6 +2336,11 @@ body {
     gap: 1.5rem;
   }
   
+  .moments-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
   .footer-content {
     grid-template-columns: 1fr;
     text-align: center;
@@ -2261,6 +2381,14 @@ body {
     padding: 2rem 1.5rem;
   }
   
+  .moment-card .moment-content {
+    padding: 1.5rem;
+  }
+  
+  .moment-image {
+    height: 200px;
+  }
+  
   .contact-form-container {
     padding: 2rem 1.5rem;
   }
@@ -2299,6 +2427,18 @@ body {
   .service-card,
   .testimonial-card {
     padding: 1.5rem 1rem;
+  }
+  
+  .moment-card .moment-content {
+    padding: 1.25rem;
+  }
+  
+  .moment-image {
+    height: 180px;
+  }
+  
+  .moment-year {
+    font-size: 2.5rem;
   }
   
   .contact-form-container {
