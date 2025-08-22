@@ -294,7 +294,7 @@ Maranhão.</p>
   </section>
 
   <!-- Services Section -->
-  <section id="servicos" class="services-section section">
+  <section id="servicos" class="services-section section experiences-section">
     <div class="container">
       <div class="section-header" data-aos="fade-up">
         <h2 class="section-title">O que fazemos</h2>
@@ -457,7 +457,7 @@ oficinas, workshops e atividades educativas direcionadas às necessidades espec�
         <div class="section-line"></div>
         <p class="section-subtitle">Apresentamos alguns dos projetos em que trabalhamos</p>
       </div>
-      <div class="services-grid">
+      <div class="services-grid experiences-grid collapsed" id="experiences-grid">
         
         <div class="service-card" data-aos="fade-up" data-aos-delay="100">
           <div class="service-icon">
@@ -689,6 +689,20 @@ fornecimento, funcionamento e manutenção de Armazéns Solidários na modalidad
 Guaianases, São Miguel Paulista, Cidade Tiradentes, City Jaraguá e Jaraguá.</p>
         </div>
           <!-- Grid 1 -->
+        <!-- Overlay de desfoque -->
+        <div class="experiences-blur-overlay" id="experiences-blur"></div>
+      </div>
+      
+      <!-- Botão Ver todas/Ver menos -->
+      <div class="show-more-container">
+        <button class="show-more-btn" id="show-more-btn" onclick="toggleExperiences()">
+          <span>Ver todas as experiências</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <button class="show-less-btn" id="show-less-btn" onclick="toggleExperiences()">
+          <span>Ver menos</span>
+          <i class="fas fa-chevron-up"></i>
+        </button>
         <div class="service-card" data-aos="fade-up" data-aos-delay="100">
           <div class="service-icon">
            <i class="fas fa-1"></i>

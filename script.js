@@ -1613,3 +1613,54 @@ function carregarPosts() {
     blogManager.loadPosts();
   }
 }
+
+// Função para alternar visualização das experiências
+function toggleExperiences() {
+  const grid = document.getElementById('experiences-grid');
+  const blur = document.getElementById('experiences-blur');
+  const showMoreBtn = document.getElementById('show-more-btn');
+  const showLessBtn = document.getElementById('show-less-btn');
+  
+  if (grid.classList.contains('collapsed')) {
+    // Expandir - mostrar todos os cards
+    grid.classList.remove('collapsed');
+    blur.classList.add('hidden');
+    showMoreBtn.classList.add('hidden');
+    showLessBtn.classList.add('visible');
+    
+    // Animar os cards que estavam ocultos
+    const hiddenCards = grid.querySelectorAll('.service-card:nth-child(n+4)');
+    hiddenCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.display = 'block';
+        
+        setTimeout(() => {
+          card.style.transition = 'all 0.6s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 50);
+      }, index * 100);
+    });
+    
+  } else {
+    // Colapsar - mostrar apenas os 3 primeiros
+    grid.classList.add('collapsed');
+    blur.classList.remove('hidden');
+    showMoreBtn.classList.remove('hidden');
+    showLessBtn.classList.remove('visible');
+    
+    // Scroll suave para o topo da seção
+    const section = document.querySelector('.experiences-section');
+    if (section) {
+      const headerHeight = document.querySelector('.header').offsetHeight;
+      const targetPosition = section.offsetTop - headerHeight - 50;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+}
