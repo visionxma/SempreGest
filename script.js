@@ -1561,7 +1561,7 @@ window.addEventListener('load', () => {
 // Navigation functions
 function mostrarHome() {
   // Show all normal sections
-  const sectionsToShow = ['inicio', 'sobre', 'servicos', 'depoimentos', 'contato'];
+  const sectionsToShow = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
   sectionsToShow.forEach(id => {
     const element = document.getElementById(id);
     if (element) element.style.display = 'block';
@@ -1580,7 +1580,7 @@ function mostrarHome() {
 
 function mostrarBlog() {
   // Hide all normal sections
-  const sectionsToHide = ['inicio', 'sobre', 'servicos', 'depoimentos', 'contato'];
+  const sectionsToHide = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
   sectionsToHide.forEach(id => {
     const element = document.getElementById(id);
     if (element) element.style.display = 'none';
