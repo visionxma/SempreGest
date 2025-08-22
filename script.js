@@ -1444,17 +1444,17 @@ class BlogManager {
     
     switch (platform) {
       case 'whatsapp':
-        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${title}\n\n${text}\n\n${url}`)}`;
+        const whatsappUrl = `https://wa.me/5598987100001?text=Olá! Gostaria de saber mais sobre os serviços da SEMPRE. ${encodeURIComponent(`${title}\n\n${text}\n\n${url}`)}`;
         window.open(whatsappUrl, '_blank');
         break;
         
       case 'facebook':
-        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+        const facebookUrl = `https://www.facebook.com/profile.php?id=61579221797589?u=${encodeURIComponent(url)}`;
         window.open(facebookUrl, '_blank');
         break;
         
       case 'linkedin':
-        const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        const linkedinUrl = `https://www.linkedin.com/in/adm-carlos-coelho-9a3b2733/?url=${encodeURIComponent(url)}`;
         window.open(linkedinUrl, '_blank');
         break;
         
