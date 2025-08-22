@@ -1567,9 +1567,12 @@ function mostrarHome() {
     if (element) element.style.display = 'block';
   });
   
-  // Hide blog
+  // Hide blog and portfolio
   const blogElement = document.getElementById('blog');
   if (blogElement) blogElement.style.display = 'none';
+  
+  const portfolioElement = document.getElementById('portfolio');
+  if (portfolioElement) portfolioElement.style.display = 'none';
   
   // Update page title
   document.title = 'SEMPRE - Gestão de Projetos e Negócios Empresariais';
@@ -1578,13 +1581,54 @@ function mostrarHome() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function mostrarBlog() {
+function mostrarPortfolio() {
   // Hide all normal sections
   const sectionsToHide = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
   sectionsToHide.forEach(id => {
     const element = document.getElementById(id);
     if (element) element.style.display = 'none';
   });
+  
+  // Hide blog
+  const blogElement = document.getElementById('blog');
+  if (blogElement) blogElement.style.display = 'none';
+  
+  // Show portfolio
+  const portfolioElement = document.getElementById('portfolio');
+  if (portfolioElement) {
+    portfolioElement.style.display = 'block';
+    
+    // Re-initialize animations for portfolio cards
+    const portfolioCards = portfolioElement.querySelectorAll('.service-card');
+    portfolioCards.forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        card.style.transition = 'all 0.6s ease';
+      }, index * 100);
+    });
+  }
+  
+  // Update page title
+  document.title = 'Portfólio - Nossos Principais Projetos | SEMPRE';
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function mostrarBlog() {
+  // Hide all normal sections and portfolio
+  const sectionsToHide = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
+  sectionsToHide.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.style.display = 'none';
+  });
+  
+  // Hide portfolio
+  const portfolioElement = document.getElementById('portfolio');
+  if (portfolioElement) portfolioElement.style.display = 'none';
   
   // Show blog
   const blogElement = document.getElementById('blog');
