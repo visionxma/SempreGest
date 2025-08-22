@@ -1444,7 +1444,7 @@ class BlogManager {
     
     switch (platform) {
       case 'whatsapp':
-        const whatsappUrl = `https://wa.me/5598987100001?text=Olá! Gostaria de saber mais sobre os serviços da SEMPRE. ${encodeURIComponent(`${title}\n\n${text}\n\n${url}`)}`;
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${title}\n\n${text}\n\n${url}`)}`;
         window.open(whatsappUrl, '_blank');
         break;
         
