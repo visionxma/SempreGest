@@ -220,6 +220,12 @@ class SempreWebsite {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href');
+        
+        // Skip if targetId is just '#' (invalid selector)
+        if (targetId === '#') {
+          return;
+        }
+        
         const targetElement = document.querySelector(targetId);
         
         if (targetElement) {
