@@ -874,7 +874,7 @@ class BlogManager {
     this.currentCategory = 'all';
     this.isLoading = false;
     this.currentArticle = null;
-    this.spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?output=csv";
+    this.spreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSoWXc-GjWdhWAEzmRHSonk74DKZksqQ373UQrptSbxgDvM3AbYMw3zo951sKWSzrJ7kdGregoQ3v9F/pub?gid=0&single=true&output=csv";
     
     this.init();
   }
