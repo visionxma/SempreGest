@@ -921,10 +921,59 @@ class BlogManager {
       
     } catch (error) {
       console.error('Erro ao carregar posts:', error);
-      this.showError();
+      // Try fallback data before showing error
+      this.loadFallbackData();
     } finally {
       this.isLoading = false;
     }
+  }
+  
+  loadFallbackData() {
+    // Provide sample blog posts as fallback when external source fails
+    this.posts = [
+      {
+        id: 1,
+        title: "Gestão Eficiente de Projetos Sociais",
+        content: "A gestão de projetos sociais requer metodologias específicas que considerem o impacto social e a sustentabilidade das ações. É fundamental estabelecer indicadores claros de resultado e processos de monitoramento contínuo.",
+        redacao: "A gestão de projetos sociais requer metodologias específicas que considerem o impacto social e a sustentabilidade das ações. É fundamental estabelecer indicadores claros de resultado e processos de monitoramento contínuo.\n\nPara garantir o sucesso de um projeto social, é necessário:\n\n1. Definir objetivos claros e mensuráveis\n2. Estabelecer parcerias estratégicas\n3. Implementar sistemas de monitoramento\n4. Garantir a participação da comunidade\n5. Avaliar constantemente os resultados\n\nA metodologia SEMPRE tem se mostrado eficaz na condução de projetos que geram impacto real na sociedade.",
+        excerpt: "A gestão de projetos sociais requer metodologias específicas que considerem o impacto social e a sustentabilidade das ações...",
+        date: new Date().toLocaleDateString('pt-BR'),
+        author: "SEMPRE",
+        category: "gestao",
+        image: "",
+        linkRedacao: ""
+      },
+      {
+        id: 2,
+        title: "Inovação no Terceiro Setor",
+        content: "O terceiro setor tem passado por transformações significativas, incorporando tecnologias e metodologias inovadoras para ampliar seu impacto social.",
+        redacao: "O terceiro setor tem passado por transformações significativas, incorporando tecnologias e metodologias inovadoras para ampliar seu impacto social.\n\nAs principais tendências incluem:\n\n- Uso de tecnologia para otimizar processos\n- Parcerias público-privadas mais estratégicas\n- Foco em resultados mensuráveis\n- Sustentabilidade financeira\n- Transparência e prestação de contas\n\nEssas mudanças têm permitido que organizações do terceiro setor alcancem resultados mais expressivos e duradouros.",
+        excerpt: "O terceiro setor tem passado por transformações significativas, incorporando tecnologias e metodologias inovadoras...",
+        date: new Date(Date.now() - 86400000).toLocaleDateString('pt-BR'),
+        author: "SEMPRE",
+        category: "terceiro-setor",
+        image: "",
+        linkRedacao: ""
+      },
+      {
+        id: 3,
+        title: "Metodologias Ágeis em Projetos Sociais",
+        content: "A aplicação de metodologias ágeis em projetos sociais tem demonstrado resultados promissores, permitindo maior flexibilidade e adaptação às necessidades da comunidade.",
+        redacao: "A aplicação de metodologias ágeis em projetos sociais tem demonstrado resultados promissores, permitindo maior flexibilidade e adaptação às necessidades da comunidade.\n\nBenefícios das metodologias ágeis:\n\n1. Maior flexibilidade para mudanças\n2. Entregas incrementais de valor\n3. Feedback contínuo da comunidade\n4. Redução de riscos\n5. Melhoria contínua dos processos\n\nA SEMPRE tem adaptado essas metodologias para o contexto social, criando frameworks específicos que respeitam as particularidades do terceiro setor.",
+        excerpt: "A aplicação de metodologias ágeis em projetos sociais tem demonstrado resultados promissores...",
+        date: new Date(Date.now() - 172800000).toLocaleDateString('pt-BR'),
+        author: "SEMPRE",
+        category: "projetos",
+        image: "",
+        linkRedacao: ""
+      }
+    ];
+    
+    this.filteredPosts = [...this.posts];
+    this.renderPosts();
+    
+    // Show a subtle notification that fallback data is being used
+    this.showNotification('Dados de exemplo carregados. Verifique a conexão para atualizações.', 'info');
   }
   
   parseCSVData(csvData) {
