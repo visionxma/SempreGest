@@ -1454,7 +1454,7 @@ class BlogManager {
         break;
         
       case 'linkedin':
-        const linkedinUrl = `https://www.linkedin.com/in/adm-carlos-coelho-9a3b2733/?url=${encodeURIComponent(url)}`;
+        const linkedinUrl = `https://www.linkedin.com/in/sempre-gest%C3%A3o-de-projetos-e-neg%C3%B3cios-empresariais-b86b7b380/?url=${encodeURIComponent(url)}`;
         window.open(linkedinUrl, '_blank');
         break;
         
