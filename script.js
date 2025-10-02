@@ -1558,46 +1558,46 @@ window.addEventListener('load', () => {
   }
 });
 
-// Navigation functions
-function mostrarHome() {
+// Navigation functions - Make them available globally
+window.mostrarHome = function() {
   // Show all normal sections
   const sectionsToShow = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
   sectionsToShow.forEach(id => {
     const element = document.getElementById(id);
     if (element) element.style.display = 'block';
   });
-  
+
   // Hide blog and portfolio
   const blogElement = document.getElementById('blog');
   if (blogElement) blogElement.style.display = 'none';
-  
+
   const portfolioElement = document.getElementById('portfolio');
   if (portfolioElement) portfolioElement.style.display = 'none';
-  
+
   // Update page title
   document.title = 'SEMPRE - Gestão de Projetos e Negócios Empresariais';
-  
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function mostrarPortfolio() {
+window.mostrarPortfolio = function() {
   // Hide all normal sections
   const sectionsToHide = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
   sectionsToHide.forEach(id => {
     const element = document.getElementById(id);
     if (element) element.style.display = 'none';
   });
-  
+
   // Hide blog
   const blogElement = document.getElementById('blog');
   if (blogElement) blogElement.style.display = 'none';
-  
+
   // Show portfolio
   const portfolioElement = document.getElementById('portfolio');
   if (portfolioElement) {
     portfolioElement.style.display = 'block';
-    
+
     // Re-initialize animations for portfolio cards
     const portfolioCards = portfolioElement.querySelectorAll('.service-card');
     portfolioCards.forEach((card, index) => {
@@ -1610,43 +1610,43 @@ function mostrarPortfolio() {
       }, index * 100);
     });
   }
-  
+
   // Update page title
   document.title = 'Portfólio - Nossos Principais Projetos | SEMPRE';
-  
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function mostrarBlog() {
+window.mostrarBlog = function() {
   // Hide all normal sections and portfolio
   const sectionsToHide = ['inicio', 'sobre', 'servicos', 'momentos', 'depoimentos', 'contato'];
   sectionsToHide.forEach(id => {
     const element = document.getElementById(id);
     if (element) element.style.display = 'none';
   });
-  
+
   // Hide portfolio
   const portfolioElement = document.getElementById('portfolio');
   if (portfolioElement) portfolioElement.style.display = 'none';
-  
+
   // Show blog
   const blogElement = document.getElementById('blog');
   if (blogElement) {
     blogElement.style.display = 'block';
-    
+
     // Initialize blog manager if not already done
     if (!blogManager) {
       blogManager = new BlogManager();
     }
-    
+
     // Load posts
     blogManager.loadPosts();
   }
-  
+
   // Update page title
   document.title = 'Principais Notícias - Artigos sobre Gestão de Projetos Sociais';
-  
+
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
