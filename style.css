@@ -2602,20 +2602,113 @@ body {
   outline-offset: 2px;
 }
 
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #ffffff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float i {
+  font-size: 30px;
+}
+
+.whatsapp-float .whatsapp-tooltip {
+  position: absolute;
+  right: 70px;
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.whatsapp-float:hover .whatsapp-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    box-shadow: 0 5px 30px rgba(37, 211, 102, 0.7);
+  }
+}
+
+/* Mobile adjustments for WhatsApp button */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+    width: 55px;
+    height: 55px;
+  }
+
+  .whatsapp-float i {
+    font-size: 26px;
+  }
+
+  .whatsapp-float .whatsapp-tooltip {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float {
+    bottom: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .whatsapp-float i {
+    font-size: 24px;
+  }
+}
+
 /* Print styles */
 @media print {
   .header,
   .hero-background,
   .universe-background,
-  .loading-screen {
+  .loading-screen,
+  .whatsapp-float {
     display: none !important;
   }
-  
+
   body {
     background: white !important;
     color: black !important;
   }
-  
+
   .section {
     page-break-inside: avoid;
   }
